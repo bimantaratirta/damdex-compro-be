@@ -1,9 +1,7 @@
-import {
-  TypeOrmModuleAsyncOptions,
-  TypeOrmModuleOptions,
-} from '@nestjs/typeorm';
+import { TypeOrmModuleAsyncOptions, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
 import dbConfig from './db.config';
+import { ENTITIES } from 'src/constant/entities.constant';
 
 dotenv.config();
 
@@ -12,7 +10,7 @@ export const typeOrmConfig: TypeOrmModuleAsyncOptions = {
     return {
       type: 'mysql',
       url: dbConfig().DB_URI,
-      entities: [],
+      entities: ENTITIES,
       synchronize: false,
     };
   },
