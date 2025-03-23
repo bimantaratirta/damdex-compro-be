@@ -12,7 +12,7 @@ export class CreateUsersTable1742759572112 implements MigrationInterface {
                 password VARCHAR(255),
                 deleted_at TIMESTAMP NULL DEFAULT NULL,
                 created_at TIMESTAMP DEFAULT NOW(),
-                updated_at TIMESTAMP DEFAULT NOW()
+                updated_at TIMESTAMP DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP
             )
         `);
   }
