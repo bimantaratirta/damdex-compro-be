@@ -8,8 +8,6 @@ import dbConfig from './config/db.config';
 import appConfig from './config/app.config';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
-import { JwtModule } from '@nestjs/jwt';
-import jwtConfig from './config/jwt.config';
 
 @Module({
   imports: [
@@ -19,13 +17,6 @@ import jwtConfig from './config/jwt.config';
       load: [dbConfig, appConfig],
     }),
     TypeOrmModule.forRootAsync(typeOrmConfig),
-    JwtModule.registerAsync({
-      useFactory: async () => ({
-        global: true,
-        secret: jwtConfig().JWT_SECRET,
-        signOptions: { expiresIn: jwtConfig().JWT_EXPIRES_IN },
-      })
-    }),
     AuthModule,
     UserModule,
   ],
