@@ -1,9 +1,9 @@
 import { Body, Controller, Get, HttpCode, Post, Req, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { LoginDto } from './dto/login.dto';
-import { ResponseBody } from 'src/types/core.type';
 import { ApiResponse } from '@nestjs/swagger';
+import { LoginResponseBody } from 'src/types/auth.type';
 
 @Controller('auth')
 export class AuthController {
@@ -11,11 +11,11 @@ export class AuthController {
 
   @Post('login')
   @HttpCode(200)
-  @ApiResponse({ type: ResponseBody })
+  @ApiResponse({ type: LoginResponseBody })
   async login(@Body() body: LoginDto, @Res() res: Response) {
     const data: any = await this.authService.login(body);
 
-    const responseBody: ResponseBody = {
+    const responseBody: LoginResponseBody = {
       error: false,
       errorMessage: null,
       data,

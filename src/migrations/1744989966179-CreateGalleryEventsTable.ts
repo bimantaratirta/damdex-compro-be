@@ -13,5 +13,7 @@ export class CreateGalleryEventsTable1744989966179 implements MigrationInterface
     `);
   }
 
-  public async down(queryRunner: QueryRunner): Promise<void> {}
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`DROP TABLE IF EXISTS news`);
+  }
 }

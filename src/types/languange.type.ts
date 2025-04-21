@@ -1,0 +1,1 @@
+export type LanguageType = 'eng' | 'id';

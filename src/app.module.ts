@@ -8,6 +8,7 @@ import dbConfig from './config/db.config';
 import appConfig from './config/app.config';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
+import { HomepageModule } from './modules/homepage/homepage.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { UserModule } from './modules/user/user.module';
     TypeOrmModule.forRootAsync(typeOrmConfig),
     AuthModule,
     UserModule,
+    HomepageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

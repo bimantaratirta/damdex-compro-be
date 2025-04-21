@@ -10,7 +10,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const documentFactory = () => SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('swagger', app, documentFactory);
+  SwaggerModule.setup('swagger', app, documentFactory, {
+    swaggerOptions: {
+      defaultModelsExpandDepth: -1,
+    }
+  });
 
   app.enableCors({
     origin: true,
