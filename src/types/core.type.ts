@@ -1,3 +1,4 @@
+import { HttpStatus } from "@nestjs/common";
 import { ApiResponseProperty } from "@nestjs/swagger";
 import { Expose } from "class-transformer";
 
@@ -8,9 +9,13 @@ export class ResponseBody {
   
   @ApiResponseProperty()
   @Expose()
-  errorMessage?: string | null;
+  message: string | null;
+
+  @ApiResponseProperty()
+  @Expose()
+  statusCode: HttpStatus;
   
   @ApiResponseProperty()
   @Expose()
-  data: any;
+  data?: any;
 }

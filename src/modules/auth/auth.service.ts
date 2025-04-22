@@ -4,6 +4,8 @@ import { LoginDto } from './dto/login.dto';
 import { JwtService } from '@nestjs/jwt';
 import * as argon2 from 'argon2';
 import { User } from 'src/entities/user.entity';
+import { UserResponse } from 'src/types/user.type';
+import { formatAllowedField } from 'src/helpers/format-allowed-field';
 
 @Injectable()
 export class AuthService {
@@ -21,7 +23,8 @@ export class AuthService {
 
     const token: string = await this.jwtService.signAsync({ id: user.id, email: user.email });
 
-    return { user, token };
+    const userFormatted: UserResponse = formatAllowedField(UserResponse, user);
+    return { user: userFormatted, token };
   }
 
   private async checkPassword(candidatePassword: string, userPassword: string) {

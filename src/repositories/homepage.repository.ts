@@ -1,12 +1,12 @@
 import { InjectEntityManager } from "@nestjs/typeorm";
-import { HomepageIdn } from "src/entities/homepages/homepage-id.entity";
+import { Homepage } from "src/entities/homepage.entity";
 import { EntityManager, Repository } from "typeorm";
 
-export class HomepageIdnRepository extends Repository<HomepageIdn> {
+export class HomepageRepository extends Repository<Homepage> {
     constructor(
         @InjectEntityManager()
         private entityManager: EntityManager,
     ) {
-        super(HomepageIdn, entityManager);
+        super(Homepage, entityManager);
     }
 }

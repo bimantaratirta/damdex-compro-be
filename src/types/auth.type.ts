@@ -1,11 +1,13 @@
 import { ApiResponseProperty } from "@nestjs/swagger";
 import { ResponseBody } from "./core.type";
 import { Expose, Type } from "class-transformer";
+import { UserResponse } from "./user.type";
 
 class LoginResponseData {
-    @ApiResponseProperty()
+    @ApiResponseProperty({ type: UserResponse })
     @Expose()
-    user: any;
+    @Type(() => UserResponse)
+    user: UserResponse;
 
     @ApiResponseProperty()
     @Expose()

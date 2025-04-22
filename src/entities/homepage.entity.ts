@@ -1,15 +1,16 @@
+import { LanguageType } from "src/types/languange.type";
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
-@Entity({ name: 'homepages_id' })
-export class HomepageIdn {
+@Entity({ name: 'homepages' })
+export class Homepage {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
+    @Column({ name: 'language', type: 'varchar', length: 50, nullable: true })
+    language: LanguageType;
+
     @Column({ name: 'key', type: 'varchar', length: 50, nullable: true })
     key: string;
-
-    @Column({ name: 'title', type: 'varchar', length: 255, nullable: true })
-    title: string;
 
     @Column({ name: 'content', type: 'text', nullable: true })
     content: string;

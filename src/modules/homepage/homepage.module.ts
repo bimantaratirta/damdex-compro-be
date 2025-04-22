@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
 import { HomepageController } from './homepage.controller';
-import { HomepageEngService } from './services/homepage-eng.service';
-import { HomepageIdService } from './services/homepage-id.service';
-import { HomepageIdnRepository } from 'src/repositories/homepages/homepage-id.repository';
+import { HomepageRepository } from 'src/repositories/homepage.repository';
+import { HomepageService } from './homepage.service';
+import { JwtModule } from '@nestjs/jwt';
+import { UserRepository } from 'src/repositories/user.repository';
 
 @Module({
-  providers: [HomepageEngService, HomepageIdService, HomepageIdnRepository],
+  imports: [JwtModule],
+  providers: [UserRepository, HomepageRepository, HomepageService],
   controllers: [HomepageController]
 })
 export class HomepageModule {}

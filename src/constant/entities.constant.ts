@@ -1,3 +1,4 @@
+import { Homepage } from '../entities/homepage.entity';
 import { User } from '../entities/user.entity';
 
-export const ENTITIES = [User];
+export const ENTITIES = [User, Homepage];

@@ -1,26 +1,25 @@
-import { Body, Controller, Get, HttpCode, Post, Req, Res } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, HttpCode, HttpStatus, Post, Req, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Response } from 'express';
 import { LoginDto } from './dto/login.dto';
 import { ApiResponse } from '@nestjs/swagger';
 import { LoginResponseBody } from 'src/types/auth.type';
+import { FunctionRule } from 'src/decorators/rule.decorator';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('login')
-  @HttpCode(200)
-  @ApiResponse({ type: LoginResponseBody })
-  async login(@Body() body: LoginDto, @Res() res: Response) {
+  @FunctionRule({
+    auth: false,
+    code: HttpStatus.OK,
+    typeResponse: LoginResponseBody,
+  })
+  async login(@Body() body: LoginDto) {
     const data: any = await this.authService.login(body);
 
-    const responseBody: LoginResponseBody = {
-      error: false,
-      errorMessage: null,
-      data,
-    };
-
-    return res.json(responseBody);
+    const message = 'Login successfully';
+    return { message, data };
   }
 }
