@@ -1,6 +1,6 @@
 import { BadRequestException, Body, Controller, Get, HttpStatus, Post, Query, Req, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { Request } from 'express';
-import { LanguageType } from 'src/types/languange.type';
+import { LanguageEnum, LanguageType } from 'src/types/languange.type';
 import { ApiConsumes, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { FunctionRule } from 'src/decorators/rule.decorator';
 import { HomepageService } from './homepage.service';
@@ -30,7 +30,7 @@ export class HomepageController {
     ) {}
 
     @Get()
-    @ApiQuery({ name: 'lang', description: `Allowed lang eng/id` })
+    @ApiQuery({ name: 'lang', enum: LanguageEnum })
     @ApiQuery({ name: 'section', required: false, type: 'number' })
     @FunctionRule({
         auth: false,
@@ -38,6 +38,9 @@ export class HomepageController {
     })
     async get(@Req() req: Request, @Query('lang') lang: LanguageType, @Query('section') section: string) {
         let data: any;
+        if (!Object.values(LanguageEnum).includes(lang)) {
+            throw new BadRequestException('Invalid language');
+        }
         data = await this.homepageService.get(req, lang, Number(section))
 
         const message: string = 'Homepage content retrieved successfully';
