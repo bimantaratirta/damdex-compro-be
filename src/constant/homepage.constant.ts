@@ -18,4 +18,7 @@ export const HOMEPAGE_KEY = {
     bottomRightDescription: 'section-2-bottom-right-description',
     bottomRightImageBackground: 'section-2-bottom-right-image-background',
   },
+  section3: {
+    
+  }
 };
