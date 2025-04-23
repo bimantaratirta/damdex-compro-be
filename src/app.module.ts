@@ -9,6 +9,7 @@ import appConfig from './config/app.config';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { HomepageModule } from './modules/homepage/homepage.module';
+import { StorageModule } from './modules/storage/storage.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { HomepageModule } from './modules/homepage/homepage.module';
     AuthModule,
     UserModule,
     HomepageModule,
+    // StorageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

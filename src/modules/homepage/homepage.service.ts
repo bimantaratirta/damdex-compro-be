@@ -17,7 +17,6 @@ export class HomepageService {
         const sectionNumber: number = body.sectionNumber;
         const homepageKeySection = HOMEPAGE_KEY[`section${sectionNumber}`];
 
-        console.log(body)
         const dataToUpdate: DeepPartial<Homepage>[] = Object.values(homepageKeySection)
             .map((keySection: string) => ({
                 key: keySection,
