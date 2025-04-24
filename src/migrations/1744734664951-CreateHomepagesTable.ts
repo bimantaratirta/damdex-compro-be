@@ -7,6 +7,7 @@ export class CreateHomepagesTable1744734664951 implements MigrationInterface {
             id INT AUTO_INCREMENT PRIMARY KEY,
             language VARCHAR(50),
             \`key\` VARCHAR(50),
+            content_type VARCHAR(50),
             content TEXT,
             deleted_at TIMESTAMP NULL DEFAULT NULL,
             created_at TIMESTAMP DEFAULT NOW(),

@@ -8,6 +8,7 @@ import { CreateOrUpdateHomepageDto } from './dto/create-or-update.dto';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
 import { User } from 'src/entities/user.entity';
+import { CreateOrUpdateHomepageResponse, GetHomepageResponse } from 'src/types/homepage.type';
 
 const maxFileSize: number = 1 * 1024; // 5 MB
 const fileFilterConfig = (
@@ -35,6 +36,7 @@ export class HomepageController {
     @FunctionRule({
         auth: false,
         code: HttpStatus.OK,
+        typeResponse: GetHomepageResponse
     })
     async get(@Req() req: Request, @Query('lang') lang: LanguageType, @Query('section') section: string) {
         let data: any;
@@ -48,7 +50,7 @@ export class HomepageController {
     }
 
     @Post()
-    @FunctionRule({ code: HttpStatus.OK })
+    @FunctionRule({ code: HttpStatus.OK, typeResponse: CreateOrUpdateHomepageResponse })
     @ApiConsumes('multipart/form-data')
     @UseInterceptors(
         FileFieldsInterceptor([
@@ -73,6 +75,7 @@ export class HomepageController {
             section2TopRightImageBackground?: Express.Multer.File[],
             section2BottomLeftImageBackground?: Express.Multer.File[],
             section2BottomRightImageBackground?: Express.Multer.File[],
+            section3ImageBackground?: Express.Multer.File[],
         }
     ) {
         if (files.section1Background?.[0]) {
@@ -92,6 +95,9 @@ export class HomepageController {
         }
         if (files.section2BottomRightImageBackground?.[0]) {
             body.section2BottomRightImageBackground = files.section2BottomRightImageBackground?.[0];
+        }
+        if (files.section3ImageBackground?.[0]) {
+            body.section3ImageBackground = files.section3ImageBackground?.[0];
         }
         
         const data = await this.homepageService.createOrUpdate(body);

@@ -9,6 +9,7 @@ import { toCamelCase } from 'src/helpers/change-string-format';
 import { randomBytes } from 'crypto';
 import { extname } from 'path';
 import { Request } from 'express';
+import { ContentType, ContentTypeEnum } from 'src/types/homepage.type';
 
 @Injectable()
 export class HomepageService {
@@ -27,7 +28,8 @@ export class HomepageService {
         const findWhereOptions: FindOptionsWhere<Homepage>[] = keys.map((key: string) => ({ key, language: lang }))
         const record: Homepage[] = await this.homepageRepository.find({where: findWhereOptions })
 
-        console.log(record);
+        // TODO: After Storage is setting up, add fileUrl when the contentType is image
+
         return record;
     }
 
@@ -40,11 +42,13 @@ export class HomepageService {
             .map((keySection: string) => ({
                 key: keySection,
                 language: language,
-                content: body[`${toCamelCase(keySection)}`]
+                content: body[`${toCamelCase(keySection)}`],
+                contentType: ContentTypeEnum.TEXT as ContentType,
             }))
             .map((item) => {
                 if (this.isMulterFile(item.content)){
                     item.content = this.generateNameFileTemporary(item.content, 'homepage/image');
+                    item.contentType = ContentTypeEnum.IMAGE;
                 }
                 
                 return item;

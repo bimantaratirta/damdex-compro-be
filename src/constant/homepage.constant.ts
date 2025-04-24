@@ -19,6 +19,11 @@ export const HOMEPAGE_KEY = {
     bottomRightImageBackground: 'section-2-bottom-right-image-background',
   },
   section3: {
-    
+    topLeftTitle: 'section-3-top-left-title',
+    topLeftDescription: 'section-3-top-left-description',
+    centerTitle: 'section-3-center-title',
+    bottomRightTitle: 'section-3-bottom-right-title',
+    bottomRightDescription: 'section-3-bottom-right-description',
+    imageBackground: 'section-3-image-background',
   }
 };
