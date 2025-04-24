@@ -8,9 +8,9 @@ import { CreateOrUpdateHomepageDto } from './dto/create-or-update.dto';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
 import { User } from 'src/entities/user.entity';
-import { CreateOrUpdateHomepageResponse, GetHomepageResponse } from 'src/types/homepage.type';
+import { CreateOrUpdateHomepageResponseBody, GetHomepageResponseBody } from 'src/types/homepage.type';
 
-const maxFileSize: number = 1 * 1024; // 5 MB
+const maxFileSize: number = 5 * 1024 * 1024; // 5 MB
 const fileFilterConfig = (
     req: Request & { user: User },
     file: Express.Multer.File,
@@ -36,7 +36,7 @@ export class HomepageController {
     @FunctionRule({
         auth: false,
         code: HttpStatus.OK,
-        typeResponse: GetHomepageResponse
+        typeResponse: GetHomepageResponseBody
     })
     async get(@Req() req: Request, @Query('lang') lang: LanguageType, @Query('section') section: string) {
         let data: any;
@@ -50,7 +50,7 @@ export class HomepageController {
     }
 
     @Post()
-    @FunctionRule({ code: HttpStatus.OK, typeResponse: CreateOrUpdateHomepageResponse })
+    @FunctionRule({ code: HttpStatus.OK, typeResponse: CreateOrUpdateHomepageResponseBody })
     @ApiConsumes('multipart/form-data')
     @UseInterceptors(
         FileFieldsInterceptor([

@@ -10,6 +10,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { HomepageModule } from './modules/homepage/homepage.module';
 import { StorageModule } from './modules/storage/storage.module';
+import { NewsModule } from './modules/news/news.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { StorageModule } from './modules/storage/storage.module';
     UserModule,
     HomepageModule,
     // StorageModule,
+    NewsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -48,13 +48,13 @@ class HomepageResponse {
     deletedAt: Date | null;
 }
 
-export class GetHomepageResponse extends ResponseBody {
+export class GetHomepageResponseBody extends ResponseBody {
     @ApiResponseProperty({ type: [HomepageResponse] })
     @Type(() => HomepageResponse)
     data?: HomepageResponse[];
 }
 
-export class CreateOrUpdateHomepageResponse extends ResponseBody {
+export class CreateOrUpdateHomepageResponseBody extends ResponseBody {
     @ApiResponseProperty({ type: [HomepageResponse] })
     @Type(() => HomepageResponse)
     data?: HomepageResponse[];

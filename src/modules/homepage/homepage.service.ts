@@ -67,6 +67,7 @@ export class HomepageService {
         return data;
     }
 
+    // TODO: Delete this
     // Temporary function, the original function in storage service
     private generateNameFileTemporary(file: Express.Multer.File, path: string) {
         const randomString = randomBytes(8).toString('hex');

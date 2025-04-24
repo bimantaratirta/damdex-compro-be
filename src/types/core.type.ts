@@ -19,3 +19,41 @@ export class ResponseBody {
   @Expose()
   data?: any;
 }
+
+export class ResponsePaginateData {
+  @ApiResponseProperty()
+  @Expose()
+  totalAllData: number;
+
+  @ApiResponseProperty()
+  @Expose()
+  totalData: number;
+
+  @ApiResponseProperty()
+  @Expose()
+  limit: number;
+
+  @ApiResponseProperty()
+  @Expose()
+  totalPage: number;
+
+  @ApiResponseProperty()
+  @Expose()
+  currentPage: number;
+
+  @ApiResponseProperty()
+  @Expose()
+  lastPage: number;
+
+  @ApiResponseProperty()
+  @Expose()
+  nextPage: number | null;
+
+  @ApiResponseProperty()
+  @Expose()
+  previousPage: number | null;
+
+  @ApiResponseProperty()
+  @Expose()
+  payload: any;
+}

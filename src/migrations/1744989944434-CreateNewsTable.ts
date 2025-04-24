@@ -5,7 +5,7 @@ export class CreateNewsTable1744989944434 implements MigrationInterface {
     await queryRunner.query(`
             CREATE TABLE IF NOT EXISTS news (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            image_title VARCHAR(255),
+            title_image VARCHAR(255),
             title_id VARCHAR(255),
             content_id TEXT,
             title_eng VARCHAR(255),
