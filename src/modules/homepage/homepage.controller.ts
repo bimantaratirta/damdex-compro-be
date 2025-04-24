@@ -60,6 +60,7 @@ export class HomepageController {
             { name: 'section2TopRightImageBackground', maxCount: 1 },
             { name: 'section2BottomLeftImageBackground', maxCount: 1 },
             { name: 'section2BottomRightImageBackground', maxCount: 1 },
+            { name: 'section3ImageBackground', maxCount: 1 },
         ],
         {
             storage: memoryStorage(),
