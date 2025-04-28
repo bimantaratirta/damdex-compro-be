@@ -33,15 +33,16 @@ export class News {
 
     public getSearchables() {
         return {
-          name: 'LIKE',
-          code: 'LIKE',
+          titleIDN: 'LIKE',
+          titleENG: 'LIKE',
         };
-      }
+    }
+
     
-      public getDefaultOrderBy() {
-        return {
-          columnName: 'createdAt',
-          order: 'desc',
-        };
-      }
+    public getDefaultOrderBy() {
+      return {
+        columnName: 'createdAt',
+        order: 'desc',
+      };
+    }
 }

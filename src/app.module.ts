@@ -11,6 +11,7 @@ import { UserModule } from './modules/user/user.module';
 import { HomepageModule } from './modules/homepage/homepage.module';
 import { StorageModule } from './modules/storage/storage.module';
 import { NewsModule } from './modules/news/news.module';
+import { GalleryEventModule } from './modules/gallery-event/gallery-event.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { NewsModule } from './modules/news/news.module';
     HomepageModule,
     // StorageModule,
     NewsModule,
+    GalleryEventModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -10,7 +10,7 @@ import { CreateNewsResponseBody, GetOneNewsResponseBody, PaginateNewsResponseBod
 import { UpdateNewsDto } from './dto/update.dto';
 import { ResponseBody } from 'src/types/core.type';
 
-const maxFileSize: number = 1 * 1024; // 5 MB
+const maxFileSize: number = 5 * 1024 * 1024; // 5 MB
 const fileFilterConfig = (
     req: Request,
     file: Express.Multer.File,
