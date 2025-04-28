@@ -47,6 +47,10 @@ export class GalleryEventResponse {
     @Expose()
     eventDescriptionENG: string;
     
+    @ApiPropertyOptional()
+    @Expose()
+    heroImageUrl?: string;
+    
     @ApiResponseProperty()
     @Expose()
     createdAt: Date;
@@ -58,10 +62,6 @@ export class GalleryEventResponse {
     @ApiResponseProperty()
     @Expose()
     deletedAt: Date | null;
-    
-    @ApiPropertyOptional()
-    @Expose()
-    heroImageUrl?: string;
 }
 
 

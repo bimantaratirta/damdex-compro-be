@@ -35,6 +35,8 @@ export class GalleryEvent {
     @Column({ name: 'event_description_eng', type: 'text', nullable: true, })
     eventDescriptionENG: string;
     
+    heroImageUrl?: string;
+    
     @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
 
@@ -43,8 +45,6 @@ export class GalleryEvent {
 
     @DeleteDateColumn({ name: 'deleted_at' })
     deletedAt: Date | null;
-
-    heroImageUrl?: string;
 
     public getSearchables() {
       return {
