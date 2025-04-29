@@ -3,9 +3,12 @@ import { ProductController } from './product.controller';
 import { ProductService } from './product.service';
 import { ProductRepository } from 'src/repositories/product.repository';
 import { ProductAdvantageRepository } from 'src/repositories/product-advantage.repository';
+import { JwtModule } from '@nestjs/jwt';
+import { UserRepository } from 'src/repositories/user.repository';
 
 @Module({
+  imports: [JwtModule],
   controllers: [ProductController],
-  providers: [ProductService, ProductRepository, ProductAdvantageRepository]
+  providers: [ProductService, ProductRepository, ProductAdvantageRepository, UserRepository]
 })
 export class ProductModule {}
