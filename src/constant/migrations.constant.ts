@@ -3,11 +3,13 @@ import { CreateUsersTable1742759572112 } from '../migrations/1742759572112-Creat
 import { CreateNewsTable1744989944434 } from '../migrations/1744989944434-CreateNewsTable';
 import { CreateGalleryEventsTable1744989966179 } from '../migrations/1744989966179-CreateGalleryEventsTable';
 import { CreateProjectsTable1745869855984 } from '../migrations/1745869855984-CreateProjectsTable';
+import { CreateProductsTable1745944164939 } from '../migrations/1745944164939-CreateProductsTable';
 
 export const MIGRATIONS = [
   CreateUsersTable1742759572112,
   CreateHomepagesTable1744734664951,
   CreateNewsTable1744989944434,
   CreateGalleryEventsTable1744989966179,
-  CreateProjectsTable1745869855984
+  CreateProjectsTable1745869855984,
+  CreateProductsTable1745944164939,
 ];

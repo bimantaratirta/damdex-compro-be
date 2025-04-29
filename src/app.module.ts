@@ -13,6 +13,7 @@ import { StorageModule } from './modules/storage/storage.module';
 import { NewsModule } from './modules/news/news.module';
 import { GalleryEventModule } from './modules/gallery-event/gallery-event.module';
 import { ProjectModule } from './modules/project/project.module';
+import { ProductModule } from './modules/product/product.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { ProjectModule } from './modules/project/project.module';
     NewsModule,
     GalleryEventModule,
     ProjectModule,
+    ProductModule,
   ],
   controllers: [AppController],
   providers: [AppService],
