@@ -1,9 +1,9 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class CreateProductsTable1745869855984 implements MigrationInterface {
+export class CreateProjectsTable1745869855984 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
-            CREATE TABLE IF NOT EXISTS products (
+            CREATE TABLE IF NOT EXISTS projects (
             id INT AUTO_INCREMENT PRIMARY KEY,
             hero_image VARCHAR(255),
             title_id VARCHAR(255),
@@ -20,6 +20,6 @@ export class CreateProductsTable1745869855984 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`DROP TABLE IF EXISTS products`);
+        await queryRunner.query(`DROP TABLE IF EXISTS projects`);
     }
 }

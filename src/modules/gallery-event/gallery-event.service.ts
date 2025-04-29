@@ -50,7 +50,7 @@ export class GalleryEventService {
         const galleryEvent: GalleryEvent = await this.galleryEventRepository.findOne({ where: { id: Number(id) }});
 
         if (!galleryEvent) {
-            throw new NotFoundException('Gallery event no longer exists. Please try another news');
+            throw new NotFoundException('Gallery event no longer exists. Please try another gallery event');
         }
 
         // TODO: get image
@@ -62,7 +62,7 @@ export class GalleryEventService {
         const galleryEvent: GalleryEvent = await this.galleryEventRepository.findOne({ where: { id: Number(id) }});
 
         if (!galleryEvent) {
-            throw new NotFoundException('Gallery event no longer exists. Please try another news');
+            throw new NotFoundException('Gallery event no longer exists. Please try another gallery event');
         }
 
         galleryEvent.titleIDN = body.titleIDN ?? galleryEvent.titleIDN,
@@ -88,7 +88,7 @@ export class GalleryEventService {
         const galleryEvent: GalleryEvent = await this.galleryEventRepository.findOne({ where: { id: Number(id) }});
 
         if (!galleryEvent) {
-            throw new NotFoundException('News no longer exists. Please try another galleryEvent');
+            throw new NotFoundException('Gallery Event no longer exists. Please try another gallery event');
         }
 
         await this.galleryEventRepository.softDelete({ id: galleryEvent.id });

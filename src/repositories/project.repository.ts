@@ -1,14 +1,14 @@
 import { Injectable } from "@nestjs/common";
 import { InjectEntityManager } from "@nestjs/typeorm";
-import { Product } from "src/entities/product.entity";
+import { Project } from "src/entities/project.entity";
 import { EntityManager, Repository } from "typeorm";
 
 @Injectable()
-export class ProductRepository extends Repository<Product> {
+export class ProjectRepository extends Repository<Project> {
     constructor(
         @InjectEntityManager()
         private entityManager: EntityManager,
     ) {
-        super(Product, entityManager);
+        super(Project, entityManager);
     }
 }
