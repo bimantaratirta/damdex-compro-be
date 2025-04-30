@@ -14,10 +14,9 @@ import { extname } from 'path';
 export class ProductService {
     constructor(
         private productRepository: ProductRepository,
-        private productAdvantageRepository: ProductAdvantageRepository
     ) {}
     
-    async createProduct(body: CreateProductDto) {
+    async create(body: CreateProductDto) {
         let newProduct: Product = this.productRepository.create({
             titleIDN: body.titleIDN,
             titleENG: body.titleENG,
@@ -31,7 +30,7 @@ export class ProductService {
         return newProduct;
     }
 
-    async findPaginateProduct(req: Request) {
+    async findPaginate(req: Request) {
         const searchables = new Product().getSearchables();
 
         const options: FindManyOptions<Product> = {}
@@ -42,8 +41,8 @@ export class ProductService {
         return data;
     }
     
-    async findOneProduct(id: string) {
-        const product: Product = await this.productRepository.findOne({ where: { id: Number(id) }});
+    async findOne(id: string) {
+        const product: Product = await this.productRepository.findOne({ where: { id: Number(id) }, relations: { productAdvantage: true }});
 
         if (!product) {
             throw new NotFoundException('Product no longer exists. Please try another news');
@@ -54,7 +53,7 @@ export class ProductService {
         return product;
     }
 
-    async updateProduct(id: string, body: UpdateProductDto) {
+    async update(id: string, body: UpdateProductDto) {
         const product: Product = await this.productRepository.findOne({ where: { id: Number(id) }});
 
         if (!product) {
@@ -75,7 +74,7 @@ export class ProductService {
         return product;
     }
 
-    async deleteProduct(id: string): Promise<void> {
+    async delete(id: string): Promise<void> {
         const product: Product = await this.productRepository.findOne({ where: { id: Number(id) }});
 
         if (!product) {
@@ -87,7 +86,7 @@ export class ProductService {
 
     private async saveImageProduct(product: Product, image: Express.Multer.File) {
         // TODO: Change this to storage service
-        const pathFile = this.generateNameFileTemporary(image, 'gallery-events/image');
+        const pathFile = this.generateNameFileTemporary(image, 'products/image');
         product.heroImage = pathFile;
 
         await this.productRepository.save(product);
