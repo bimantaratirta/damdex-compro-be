@@ -68,8 +68,7 @@ export class HomepageService {
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try {
-            const data = await Promise.all(dataToUpdate.map(async (data, idx) => {
-                console.log(idx)
+            const data = await Promise.all(dataToUpdate.map(async (data) => {
                 let record: Homepage = await queryRunner.manager.findOne(Homepage, {where: {key: data.key, language}});
                 if (record) {
                     await queryRunner.manager.update(Homepage, { id: record.id }, data)
