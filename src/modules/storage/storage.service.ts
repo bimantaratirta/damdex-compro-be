@@ -28,7 +28,7 @@ export class StorageService {
         this.bucketName = storageConfig().IS3_BUCKET_NAME;
     }
 
-    async save(path: string, contentType: string, file: Express.Multer.File): Promise<string> {
+    save(path: string, contentType: string, file: Express.Multer.File): string {
         const metadata: Minio.ItemBucketMetadata = {
           contentType,
         };
@@ -37,7 +37,7 @@ export class StorageService {
         const fileName = `${randomString}-${Date.now()}${extname(file.originalname)}`;
         const pathFile: string = path.length > 0 ? `${path}/${fileName}` : fileName;
     
-        await this.minioClient.putObject(this.bucketName, pathFile, file.buffer, file.size, {
+        this.minioClient.putObject(this.bucketName, pathFile, file.buffer, file.size, {
             ...metadata,
         });
     

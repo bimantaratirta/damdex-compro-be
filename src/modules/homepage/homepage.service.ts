@@ -6,15 +6,15 @@ import { DeepPartial, FindManyOptions, FindOptionsWhere } from 'typeorm';
 import { Homepage } from 'src/entities/homepage.entity';
 import { LanguageType } from 'src/types/languange.type';
 import { toCamelCase } from 'src/helpers/change-string-format';
-import { randomBytes } from 'crypto';
-import { extname } from 'path';
 import { Request } from 'express';
 import { ContentType, ContentTypeEnum } from 'src/types/homepage.type';
+import { StorageService } from '../storage/storage.service';
 
 @Injectable()
 export class HomepageService {
     constructor(
         private homepageRepository: HomepageRepository,
+        private storageService: StorageService,
     ) {}
 
     async get(req: Request, lang: LanguageType, section: number|undefined) {
@@ -26,9 +26,15 @@ export class HomepageService {
         };
 
         const findWhereOptions: FindOptionsWhere<Homepage>[] = keys.map((key: string) => ({ key, language: lang }))
-        const record: Homepage[] = await this.homepageRepository.find({where: findWhereOptions })
+        let record: Homepage[] = await this.homepageRepository.find({where: findWhereOptions })
 
         // TODO: After Storage is setting up, add fileUrl when the contentType is image
+        record = await Promise.all(record.map(async (item) => {
+            if (item.contentType === ContentTypeEnum.IMAGE) {
+                item.fileUrl = await this.storageService.getPresignedUrl(item.content);
+            }
+            return item;
+        }))
 
         return record;
     }
@@ -47,7 +53,7 @@ export class HomepageService {
             }))
             .map((item) => {
                 if (this.isMulterFile(item.content)){
-                    item.content = this.generateNameFileTemporary(item.content, 'homepage/image');
+                    item.content = this.storageService.save('homepage/files', item.contentType, item.content);
                     item.contentType = ContentTypeEnum.IMAGE;
                 }
                 
@@ -65,15 +71,6 @@ export class HomepageService {
         }))
         
         return data;
-    }
-
-    // TODO: Delete this
-    // Temporary function, the original function in storage service
-    private generateNameFileTemporary(file: Express.Multer.File, path: string) {
-        const randomString = randomBytes(8).toString('hex');
-        const fileName = `${randomString}-${Date.now()}${extname(file.originalname)}`;
-        const pathFile: string = path.length > 0 ? `${path}/${fileName}` : fileName;
-        return pathFile;
     }
 
     private isMulterFile(file: any): file is Express.Multer.File {
