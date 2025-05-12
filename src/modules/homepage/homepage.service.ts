@@ -2,19 +2,22 @@ import { Injectable } from '@nestjs/common';
 import { HomepageRepository } from 'src/repositories/homepage.repository';
 import { CreateOrUpdateHomepageDto } from './dto/create-or-update.dto';
 import { HOMEPAGE_KEY } from 'src/constant/homepage.constant';
-import { DeepPartial, FindManyOptions, FindOptionsWhere } from 'typeorm';
+import { DataSource, DeepPartial, FindManyOptions, FindOptionsWhere } from 'typeorm';
 import { Homepage } from 'src/entities/homepage.entity';
 import { LanguageType } from 'src/types/languange.type';
 import { toCamelCase } from 'src/helpers/change-string-format';
 import { Request } from 'express';
 import { ContentType, ContentTypeEnum } from 'src/types/homepage.type';
 import { StorageService } from '../storage/storage.service';
+import { InjectDataSource } from '@nestjs/typeorm';
 
 @Injectable()
 export class HomepageService {
     constructor(
         private homepageRepository: HomepageRepository,
         private storageService: StorageService,
+        @InjectDataSource()
+        private dataSource: DataSource
     ) {}
 
     async get(req: Request, lang: LanguageType, section: number|undefined) {
@@ -60,17 +63,28 @@ export class HomepageService {
                 return item;
             });
         
-        const data = await Promise.all(dataToUpdate.map(async (data) => {
-            let record: Homepage = await this.homepageRepository.findOne({where: {key: data.key, language}});
-            if (record) {
-                await this.homepageRepository.update({ id: record.id }, data)
-            } else {
-                await this.homepageRepository.insert(data);
-            }
-            return await this.homepageRepository.findOne({where: { key: data.key, language }});
-        }))
-        
-        return data;
+        const queryRunner = this.dataSource.createQueryRunner();
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        try {
+            const data = await Promise.all(dataToUpdate.map(async (data) => {
+                let record: Homepage = await queryRunner.manager.findOne(Homepage, {where: {key: data.key, language}});
+                if (record) {
+                    await queryRunner.manager.update(Homepage, { id: record.id }, data)
+                } else {
+                    await queryRunner.manager.insert(Homepage, data);
+                }
+                return await queryRunner.manager.findOne(Homepage, {where: { key: data.key, language }});
+            }))
+
+            await queryRunner.commitTransaction();
+            return data;
+        } catch (error) {
+            await queryRunner.rollbackTransaction();
+            throw error;
+        } finally {
+            await queryRunner.release();
+        }
     }
 
     private isMulterFile(file: any): file is Express.Multer.File {

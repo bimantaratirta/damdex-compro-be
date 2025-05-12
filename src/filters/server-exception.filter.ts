@@ -11,7 +11,7 @@ export class ServerExceptionFilter implements ExceptionFilter {
   
       const statusCode: number = HttpStatus.INTERNAL_SERVER_ERROR;
       const message: string = exception.message;
-      console.log(exception.stack);
+      console.log(new Date().toString(), ' : ', exception.stack);
   
       const errorBody: ResponseBody = {
         error: true,
