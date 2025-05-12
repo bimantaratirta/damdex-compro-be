@@ -9,7 +9,7 @@ import { CreateProductAdvantageDto, CreateProductDto } from './dto/create.dto';
 import { UpdateProductAdvantageDto, UpdateProductDto } from './dto/update.dto';
 import { ResponseBody } from 'src/types/core.type';
 import { ProductAdvantageService } from './product-advantage.service';
-import { CreateProductResponseBody, GetOneProductResponseBody, PaginateProductResponseBody, UpdateProductResponseBody } from 'src/types/product.type';
+import { CreateProductResponseBody, GetOneProductResponseBody, PaginateProductResponseBody, ProductOptionsResponseBody, UpdateProductResponseBody } from 'src/types/product.type';
 import { CreateProductAdvantageResponseBody, GetOneProductAdvantageResponseBody, PaginateProductAdvantageResponseBody, UpdateProductAdvantageResponseBody } from 'src/types/product-advantage.type';
 
 const maxFileSize: number = 5 * 1024 * 1024; // 5 MB
@@ -44,6 +44,18 @@ export class ProductController {
     async getPaginateProduct(@Req() req: Request) {
         const data = await this.productService.findPaginate(req);
         const message = 'Products retrieved successfully';
+        return { data, message };
+    }
+
+    @Get('get-product-options')
+    @FunctionRule({
+        auth: false,
+        code: HttpStatus.OK,
+        typeResponse: ProductOptionsResponseBody
+    })
+    async getProductOptions() {
+        const data = await this.productService.getProductOptions();
+        const message = 'Product options retrieved successfully';
         return { data, message };
     }
 

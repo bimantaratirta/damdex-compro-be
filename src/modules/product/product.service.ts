@@ -97,6 +97,11 @@ export class ProductService {
         await this.productRepository.softDelete({ id: product.id });
     }
 
+    async getProductOptions() {
+        const productOptions = await this.productRepository.find();
+        return productOptions;
+    }
+
     private async saveImageProduct(product: Product, image: Express.Multer.File) {
         // DONE: Change this to storage service
         const pathFile = await this.storageService.save('products', image.mimetype, image);

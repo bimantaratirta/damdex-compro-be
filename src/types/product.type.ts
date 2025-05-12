@@ -84,3 +84,10 @@ export class UpdateProductResponseBody extends ResponseBody {
     @Type(() => ProductResponseData)
     data?: ProductResponseData;
 }
+
+export class ProductOptionsResponseBody extends ResponseBody {
+    @ApiProperty({ type: [ProductResponseData] })
+    @Expose()
+    @Type(() => ProductResponseData)
+    data?: ProductResponseData[];
+}
