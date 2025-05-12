@@ -8,11 +8,13 @@ import { Request } from "express";
 import { UpdateProductAdvantageDto } from "./dto/update.dto";
 import { randomBytes } from "crypto";
 import { extname } from "path";
+import { StorageService } from "../storage/storage.service";
 
 @Injectable()
 export class ProductAdvantageService {
     constructor(
-        private productAdvantageRepository: ProductAdvantageRepository
+        private productAdvantageRepository: ProductAdvantageRepository,
+        private storageService: StorageService
     ) {}
     
     async create(body: CreateProductAdvantageDto) {
@@ -37,6 +39,12 @@ export class ProductAdvantageService {
         const data = await new FindPaginate(this.productAdvantageRepository, req, searchables, options).build();
 
         // TODO: get image
+        data.payload = await Promise.all(
+            data.payload.map(async (payload) => {
+                payload.heroImageUrl = await this.storageService.getPresignedUrl(payload.heroImage);
+                return payload;
+            })
+        )
 
         return data;
     }
@@ -48,7 +56,8 @@ export class ProductAdvantageService {
             throw new NotFoundException('Product no longer exists. Please try another news');
         }
 
-        // TODO: get image
+        // DONE: get image
+        productAdvantage.heroImageUrl = await this.storageService.getPresignedUrl(productAdvantage.heroImage);
 
         return productAdvantage;
     }
@@ -85,19 +94,10 @@ export class ProductAdvantageService {
     }
 
     private async saveImage(productAdvantage: ProductAdvantage, image: Express.Multer.File) {
-        // TODO: Change this to storage service
-        const pathFile = this.generateNameFileTemporary(image, 'product-advantage/image');
+        // DONE: Change this to storage service
+        const pathFile = await this.storageService.save('product-advantages', image.mimetype, image);
         productAdvantage.heroImage = pathFile;
 
         await this.productAdvantageRepository.save(productAdvantage);
-    }
-
-    // TODO: delete this, and change using storage service
-    // Temporary function, the original function in storage service
-    private generateNameFileTemporary(file: Express.Multer.File, path: string) {
-        const randomString = randomBytes(8).toString('hex');
-        const fileName = `${randomString}-${Date.now()}${extname(file.originalname)}`;
-        const pathFile: string = path.length > 0 ? `${path}/${fileName}` : fileName;
-        return pathFile;
     }
 }

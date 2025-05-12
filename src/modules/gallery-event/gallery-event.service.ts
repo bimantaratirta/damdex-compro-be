@@ -2,18 +2,17 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { GalleryEventRepository } from 'src/repositories/gallery-event.repository';
 import { CreateGalleryEventDto } from './dto/create.dto';
 import { GalleryEvent } from 'src/entities/gallery-event.entity';
-import { randomBytes } from 'crypto';
-import { extname } from 'path';
 import * as moment from 'moment';
 import { FindPaginate } from 'src/helpers/find-paginate';
 import { FindManyOptions } from 'typeorm';
 import { Request } from 'express';
 import { UpdateGalleryEventDto } from './dto/update.dto';
-
+import { StorageService } from '../storage/storage.service';
 @Injectable()
 export class GalleryEventService {
     constructor(
         private galleryEventRepository: GalleryEventRepository,
+        private storageService: StorageService
     ) {}
 
     async create(body: CreateGalleryEventDto) {
@@ -41,7 +40,13 @@ export class GalleryEventService {
         const options: FindManyOptions<GalleryEvent> = {}
         const data = await new FindPaginate(this.galleryEventRepository, req, searchables, options).build();
 
-        // TODO: get image
+        // DONE: get image
+        data.payload = await Promise.all(
+            data.payload.map(async (payload) => {
+                payload.heroImageUrl = await this.storageService.getPresignedUrl(payload.heroImage);
+                return payload;
+            })
+        )
 
         return data;
     }
@@ -53,8 +58,9 @@ export class GalleryEventService {
             throw new NotFoundException('Gallery event no longer exists. Please try another gallery event');
         }
 
-        // TODO: get image
-
+        // DONE: get image
+        galleryEvent.heroImageUrl = await this.storageService.getPresignedUrl(galleryEvent.heroImage);
+        
         return galleryEvent;
     }
 
@@ -95,19 +101,10 @@ export class GalleryEventService {
     }
 
     private async saveImage(galleryEvent: GalleryEvent, image: Express.Multer.File) {
-        // TODO: Change this to storage service
-        const pathFile = this.generateNameFileTemporary(image, 'gallery-events/image');
+        // DONE: Change this to storage service
+        const pathFile = await this.storageService.save('gallery-events', image.mimetype, image);
         galleryEvent.heroImage = pathFile;
 
         await this.galleryEventRepository.save(galleryEvent);
-    }
-
-    // TODO: delete this, and change using storage service
-    // Temporary function, the original function in storage service
-    private generateNameFileTemporary(file: Express.Multer.File, path: string) {
-        const randomString = randomBytes(8).toString('hex');
-        const fileName = `${randomString}-${Date.now()}${extname(file.originalname)}`;
-        const pathFile: string = path.length > 0 ? `${path}/${fileName}` : fileName;
-        return pathFile;
     }
 }

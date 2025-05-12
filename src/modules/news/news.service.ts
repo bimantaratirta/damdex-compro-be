@@ -2,17 +2,16 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Request } from 'express';
 import { NewsRepository } from 'src/repositories/news.repository';
 import { CreateNewsDto } from './dto/create.dto';
-import { DeepPartial, FindManyOptions } from 'typeorm';
+import { FindManyOptions } from 'typeorm';
 import { News } from 'src/entities/news.entity';
-import { randomBytes } from 'crypto';
-import { extname } from 'path';
 import { FindPaginate } from 'src/helpers/find-paginate';
 import { UpdateNewsDto } from './dto/update.dto';
-
+import { StorageService } from '../storage/storage.service';
 @Injectable()
 export class NewsService {
     constructor(
-        private newsRepository: NewsRepository
+        private newsRepository: NewsRepository,
+        private storageService: StorageService
     ) {}
 
     async findPaginate(req: Request) {
@@ -21,7 +20,13 @@ export class NewsService {
         const options: FindManyOptions<News> = {}
         const data = await new FindPaginate(this.newsRepository, req, searchables, options).build();
 
-        // TODO: get image
+        // DONE: get image
+        data.payload = await Promise.all(
+            data.payload.map(async (payload: News) => {
+                payload.titleImageUrl = await this.storageService.getPresignedUrl(payload.titleImage);
+                return payload;
+            })
+        )
 
         return data;
     }
@@ -33,7 +38,8 @@ export class NewsService {
             throw new NotFoundException('News no longer exists. Please try another news');
         }
 
-        // TODO: get image
+        // DONE: get image
+        news.titleImageUrl = await this.storageService.getPresignedUrl(news.titleImage);
 
         return news;
     }
@@ -44,8 +50,8 @@ export class NewsService {
             titleENG: body.titleENG,
             contentIDN: body.contentIDN,
             contentENG: body.contentENG,
-            // TODO: Change using storage service
-            titleImage: this.generateNameFileTemporary(body.titleImage, 'news/image'),
+            // DONE: Change using storage service
+            titleImage: await this.storageService.save('news', body.titleImage.mimetype, body.titleImage),
         });
         return await this.newsRepository.save(newNews);
     }
@@ -61,8 +67,8 @@ export class NewsService {
         news.titleENG = body.titleENG ?? news.titleENG;
         news.contentIDN = body.contentIDN ?? news.contentIDN;
         news.contentENG = body.contentENG ?? news.contentENG;
-        // TODO: Change using storage service
-        news.titleImage = body.titleImage ? this.generateNameFileTemporary(body.titleImage, 'news/image') : news.titleImage;
+        // DONE: Change using storage service
+        news.titleImage = body.titleImage ? await this.storageService.save('news', body.titleImage.mimetype, body.titleImage) : news.titleImage;
         news = await this.newsRepository.save(news);
 
         return news;
@@ -76,14 +82,5 @@ export class NewsService {
         }
 
         await this.newsRepository.softDelete({ id: news.id });
-    }
-
-    // TODO: delete this, and change usign storage service
-    // Temporary function, the original function in storage service
-    private generateNameFileTemporary(file: Express.Multer.File, path: string) {
-        const randomString = randomBytes(8).toString('hex');
-        const fileName = `${randomString}-${Date.now()}${extname(file.originalname)}`;
-        const pathFile: string = path.length > 0 ? `${path}/${fileName}` : fileName;
-        return pathFile;
     }
 }

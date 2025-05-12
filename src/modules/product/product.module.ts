@@ -6,9 +6,10 @@ import { ProductAdvantageRepository } from 'src/repositories/product-advantage.r
 import { JwtModule } from '@nestjs/jwt';
 import { UserRepository } from 'src/repositories/user.repository';
 import { ProductAdvantageService } from './product-advantage.service';
+import { StorageModule } from '../storage/storage.module';
 
 @Module({
-  imports: [JwtModule],
+  imports: [JwtModule, StorageModule],
   controllers: [ProductController],
   providers: [ProductService,ProductAdvantageService, ProductRepository, ProductAdvantageRepository, UserRepository]
 })

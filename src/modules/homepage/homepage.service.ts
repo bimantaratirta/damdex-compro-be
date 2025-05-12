@@ -31,7 +31,7 @@ export class HomepageService {
         const findWhereOptions: FindOptionsWhere<Homepage>[] = keys.map((key: string) => ({ key, language: lang }))
         let record: Homepage[] = await this.homepageRepository.find({where: findWhereOptions })
 
-        // TODO: After Storage is setting up, add fileUrl when the contentType is image
+        // DONE: After Storage is setting up, add fileUrl when the contentType is image
         record = await Promise.all(record.map(async (item) => {
             if (item.contentType === ContentTypeEnum.IMAGE) {
                 item.fileUrl = await this.storageService.getPresignedUrl(item.content);
@@ -47,29 +47,32 @@ export class HomepageService {
         const language: LanguageType = body.language;
         const homepageKeySection = HOMEPAGE_KEY[`section${sectionNumber}`];
 
-        const dataToUpdate: DeepPartial<Homepage>[] = Object.values(homepageKeySection)
+        const dataToUpdate: DeepPartial<Homepage>[] = await Promise.all(Object.values(homepageKeySection)
             .map((keySection: string) => ({
                 key: keySection,
                 language: language,
                 content: body[`${toCamelCase(keySection)}`],
                 contentType: ContentTypeEnum.TEXT as ContentType,
             }))
-            .map((item) => {
+            .map(async (item) => {
                 if (this.isMulterFile(item.content)){
-                    item.content = this.storageService.save('homepage/files', item.contentType, item.content);
+                    // TODO: change the file to support video file
+                    item.content =  await this.storageService.save('homepages', item.contentType, item.content);
                     item.contentType = ContentTypeEnum.IMAGE;
                 }
                 
                 return item;
-            });
+            }));
         
         const queryRunner = this.dataSource.createQueryRunner();
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try {
-            const data = await Promise.all(dataToUpdate.map(async (data) => {
+            const data = await Promise.all(dataToUpdate.map(async (data, idx) => {
+                console.log(idx)
                 let record: Homepage = await queryRunner.manager.findOne(Homepage, {where: {key: data.key, language}});
                 if (record) {
+                    console.log
                     await queryRunner.manager.update(Homepage, { id: record.id }, data)
                 } else {
                     await queryRunner.manager.insert(Homepage, data);
@@ -97,5 +100,5 @@ export class HomepageService {
           typeof file.mimetype === 'string' &&
           typeof file.size === 'number'
         );
-      }
+    }
 }

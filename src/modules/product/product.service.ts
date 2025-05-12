@@ -7,13 +7,13 @@ import { FindManyOptions } from 'typeorm';
 import { FindPaginate } from 'src/helpers/find-paginate';
 import { Request } from 'express';
 import { UpdateProductDto } from './dto/update.dto';
-import { randomBytes } from 'crypto';
-import { extname } from 'path';
+import { StorageService } from '../storage/storage.service';
 
 @Injectable()
 export class ProductService {
     constructor(
         private productRepository: ProductRepository,
+        private storageService: StorageService
     ) {}
     
     async create(body: CreateProductDto) {
@@ -36,7 +36,13 @@ export class ProductService {
         const options: FindManyOptions<Product> = {}
         const data = await new FindPaginate(this.productRepository, req, searchables, options).build();
 
-        // TODO: get image
+        // DONE: get image
+        data.payload = await Promise.all(
+            data.payload.map(async (payload) => {
+                payload.heroImageUrl = await this.storageService.getPresignedUrl(payload.heroImage);
+                return payload;
+            })
+        )
 
         return data;
     }
@@ -48,7 +54,14 @@ export class ProductService {
             throw new NotFoundException('Product no longer exists. Please try another news');
         }
 
-        // TODO: get image
+        // DONE: get image
+        product.heroImageUrl = await this.storageService.getPresignedUrl(product.heroImage);
+        product.productAdvantage = await Promise.all(
+            product.productAdvantage.map(async (payload) => {
+                payload.heroImageUrl = await this.storageService.getPresignedUrl(payload.heroImage);
+                return payload;
+            })
+        )
 
         return product;
     }
@@ -85,19 +98,10 @@ export class ProductService {
     }
 
     private async saveImageProduct(product: Product, image: Express.Multer.File) {
-        // TODO: Change this to storage service
-        const pathFile = this.generateNameFileTemporary(image, 'products/image');
+        // DONE: Change this to storage service
+        const pathFile = await this.storageService.save('products', image.mimetype, image);
         product.heroImage = pathFile;
 
         await this.productRepository.save(product);
-    }
-
-    // TODO: delete this, and change using storage service
-    // Temporary function, the original function in storage service
-    private generateNameFileTemporary(file: Express.Multer.File, path: string) {
-        const randomString = randomBytes(8).toString('hex');
-        const fileName = `${randomString}-${Date.now()}${extname(file.originalname)}`;
-        const pathFile: string = path.length > 0 ? `${path}/${fileName}` : fileName;
-        return pathFile;
     }
 }

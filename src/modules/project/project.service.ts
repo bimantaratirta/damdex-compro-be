@@ -2,17 +2,16 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { ProjectRepository } from 'src/repositories/project.repository';
 import { CreateProjectDto } from './dto/create.dto';
 import { Project } from 'src/entities/project.entity';
-import { randomBytes } from 'crypto';
-import { extname } from 'path';
 import { FindManyOptions } from 'typeorm';
 import { FindPaginate } from 'src/helpers/find-paginate';
 import { Request } from 'express';
 import { UpdateProjectDto } from './dto/update.dto';
-
+import { StorageService } from '../storage/storage.service';
 @Injectable()
 export class ProjectService {
     constructor(
         private projectRepository: ProjectRepository,
+        private storageService: StorageService
     ) {}
 
     async create(body: CreateProjectDto) {
@@ -37,7 +36,13 @@ export class ProjectService {
         const options: FindManyOptions<Project> = {}
         const data = await new FindPaginate(this.projectRepository, req, searchables, options).build();
 
-        // TODO: get image
+        // DONE: get image
+        data.payload = await Promise.all(
+            data.payload.map(async (payload) => {
+                payload.heroImageUrl = await this.storageService.getPresignedUrl(payload.heroImage);
+                return payload;
+            })
+        )
 
         return data;
     }
@@ -49,7 +54,8 @@ export class ProjectService {
             throw new NotFoundException('Project no longer exists. Please try another news');
         }
 
-        // TODO: get image
+        // DONE: get image
+        project.heroImageUrl = await this.storageService.getPresignedUrl(project.heroImage);
 
         return project;
     }
@@ -88,19 +94,10 @@ export class ProjectService {
     }
 
     private async saveImage(project: Project, image: Express.Multer.File) {
-        // TODO: Change this to storage service
-        const pathFile = this.generateNameFileTemporary(image, 'gallery-events/image');
+        // DONE: Change this to storage service
+        const pathFile = await this.storageService.save('projects', image.mimetype, image);
         project.heroImage = pathFile;
 
         await this.projectRepository.save(project);
-    }
-
-    // TODO: delete this, and change using storage service
-    // Temporary function, the original function in storage service
-    private generateNameFileTemporary(file: Express.Multer.File, path: string) {
-        const randomString = randomBytes(8).toString('hex');
-        const fileName = `${randomString}-${Date.now()}${extname(file.originalname)}`;
-        const pathFile: string = path.length > 0 ? `${path}/${fileName}` : fileName;
-        return pathFile;
     }
 }

@@ -92,7 +92,7 @@ export class FindPaginate {
       const lastPage = totalPage;
       const nextPage = currentPage + 1 > totalPage ? null : currentPage + 1;
       const previousPage = currentPage - 1 <= 0 ? null : currentPage - 1;
-      const payload: Repository<any>[] = this.data;
+      const payload: any[] = this.data;
   
       const body = {
         totalAllData,

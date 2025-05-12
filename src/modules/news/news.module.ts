@@ -4,9 +4,10 @@ import { NewsController } from './news.controller';
 import { NewsRepository } from 'src/repositories/news.repository';
 import { JwtModule } from '@nestjs/jwt';
 import { UserRepository } from 'src/repositories/user.repository';
+import { StorageModule } from '../storage/storage.module';
 
 @Module({
-  imports: [JwtModule],
+  imports: [JwtModule, StorageModule],
   providers: [NewsService, NewsRepository, UserRepository],
   controllers: [NewsController]
 })
