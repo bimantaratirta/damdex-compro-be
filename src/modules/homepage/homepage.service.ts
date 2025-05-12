@@ -72,7 +72,6 @@ export class HomepageService {
                 console.log(idx)
                 let record: Homepage = await queryRunner.manager.findOne(Homepage, {where: {key: data.key, language}});
                 if (record) {
-                    console.log
                     await queryRunner.manager.update(Homepage, { id: record.id }, data)
                 } else {
                     await queryRunner.manager.insert(Homepage, data);
