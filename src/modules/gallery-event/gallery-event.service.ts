@@ -43,7 +43,7 @@ export class GalleryEventService {
         // DONE: get image
         data.payload = await Promise.all(
             data.payload.map(async (payload) => {
-                payload.heroImageUrl = await this.storageService.getPresignedUrl(payload.heroImage);
+                payload.heroImageUrl = payload.heroImage ? await this.storageService.getPresignedUrl(payload.heroImage) : null;
                 return payload;
             })
         )
@@ -59,7 +59,7 @@ export class GalleryEventService {
         }
 
         // DONE: get image
-        galleryEvent.heroImageUrl = await this.storageService.getPresignedUrl(galleryEvent.heroImage);
+        galleryEvent.heroImageUrl = galleryEvent.heroImage ? await this.storageService.getPresignedUrl(galleryEvent.heroImage) : null;
         
         return galleryEvent;
     }

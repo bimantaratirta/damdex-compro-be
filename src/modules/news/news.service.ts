@@ -23,7 +23,7 @@ export class NewsService {
         // DONE: get image
         data.payload = await Promise.all(
             data.payload.map(async (payload: News) => {
-                payload.titleImageUrl = await this.storageService.getPresignedUrl(payload.titleImage);
+                payload.titleImageUrl = payload.titleImage ? await this.storageService.getPresignedUrl(payload.titleImage) : null;
                 return payload;
             })
         )
@@ -39,7 +39,7 @@ export class NewsService {
         }
 
         // DONE: get image
-        news.titleImageUrl = await this.storageService.getPresignedUrl(news.titleImage);
+        news.titleImageUrl = news.titleImage ? await this.storageService.getPresignedUrl(news.titleImage) : null;
 
         return news;
     }

@@ -41,7 +41,7 @@ export class ProductAdvantageService {
         // TODO: get image
         data.payload = await Promise.all(
             data.payload.map(async (payload) => {
-                payload.heroImageUrl = await this.storageService.getPresignedUrl(payload.heroImage);
+                payload.heroImageUrl = payload.heroImage ? await this.storageService.getPresignedUrl(payload.heroImage) : null;
                 return payload;
             })
         )
@@ -57,7 +57,7 @@ export class ProductAdvantageService {
         }
 
         // DONE: get image
-        productAdvantage.heroImageUrl = await this.storageService.getPresignedUrl(productAdvantage.heroImage);
+        productAdvantage.heroImageUrl = productAdvantage.heroImage ? await this.storageService.getPresignedUrl(productAdvantage.heroImage) : null;
 
         return productAdvantage;
     }

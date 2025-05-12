@@ -39,7 +39,7 @@ export class ProductService {
         // DONE: get image
         data.payload = await Promise.all(
             data.payload.map(async (payload) => {
-                payload.heroImageUrl = await this.storageService.getPresignedUrl(payload.heroImage);
+                payload.heroImageUrl = payload.heroImage ? await this.storageService.getPresignedUrl(payload.heroImage) : null;
                 return payload;
             })
         )
@@ -55,10 +55,10 @@ export class ProductService {
         }
 
         // DONE: get image
-        product.heroImageUrl = await this.storageService.getPresignedUrl(product.heroImage);
+        product.heroImageUrl = product.heroImage ? await this.storageService.getPresignedUrl(product.heroImage) : null;
         product.productAdvantage = await Promise.all(
             product.productAdvantage.map(async (payload) => {
-                payload.heroImageUrl = await this.storageService.getPresignedUrl(payload.heroImage);
+                payload.heroImageUrl = payload.heroImage ? await this.storageService.getPresignedUrl(payload.heroImage) : null;
                 return payload;
             })
         )
