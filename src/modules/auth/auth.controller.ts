@@ -25,6 +25,10 @@ export class AuthController {
   }
 
   @Post('authenticate')
+  @FunctionRule({
+    code: HttpStatus.OK,
+    typeResponse: LoginResponseBody,
+  })
   async authenticate(@Req() req: Request & { user: User }) {
     const data = { user: req.user };
 
