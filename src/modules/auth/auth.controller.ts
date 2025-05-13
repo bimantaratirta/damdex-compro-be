@@ -5,6 +5,7 @@ import { LoginDto } from './dto/login.dto';
 import { ApiResponse } from '@nestjs/swagger';
 import { LoginResponseBody } from 'src/types/auth.type';
 import { FunctionRule } from 'src/decorators/rule.decorator';
+import { User } from 'src/entities/user.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -21,6 +22,13 @@ export class AuthController {
 
     const message = 'Login successfully';
     return { message, data };
+  }
+
+  @Post('authenticate')
+  async authenticate(@Req() req: Request & { user: User }) {
+    const data = { user: req.user };
+
+    return { message: 'Authenticate successfully', data };
   }
 
   @Post('refresh')
