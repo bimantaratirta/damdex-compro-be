@@ -1,6 +1,6 @@
 import { BadRequestException, Body, Controller, Get, HttpCode, HttpStatus, Post, Req, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { LoginDto } from './dto/login.dto';
 import { ApiResponse } from '@nestjs/swagger';
 import { LoginResponseBody } from 'src/types/auth.type';
@@ -21,5 +21,17 @@ export class AuthController {
 
     const message = 'Login successfully';
     return { message, data };
+  }
+
+  @Post('refresh')
+  @FunctionRule({
+    auth: false,
+    code: HttpStatus.OK,
+    typeResponse: LoginResponseBody,
+  })
+  async refreshAuth(@Req() req: Request) {
+    const data = await this.authService.refreshAuth(req);
+
+    return { message: 'Refresh token successfully', data };
   }
 }
