@@ -6,7 +6,6 @@ export class CreateUseCompositionTables1747056226096 implements MigrationInterfa
             CREATE TABLE IF NOT EXISTS use_compositions (
             id INT AUTO_INCREMENT PRIMARY KEY,
             use_id INT,
-            hero_image VARCHAR(255),
             title_id VARCHAR(255),
             title_eng VARCHAR(255),
             description_id TEXT,

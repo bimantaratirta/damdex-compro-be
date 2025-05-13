@@ -13,6 +13,12 @@ export class UseCompositionUseFor {
     @Column({ name: 'use_composition_id', type: 'int', nullable: true })
     useCompositionId: string;
 
+    @Column({ name: 'title_id', type: 'text', nullable: true, })
+    titleIDN: string;
+
+    @Column({ name: 'title_eng', type: 'text', nullable: true, })
+    titleENG: string;
+
     @Column({ name: 'description_id', type: 'text', nullable: true, })
     descriptionIDN: string;
 

@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { UseComposition } from "./use-composition.entity";
 
 @Entity('uses')
 export class Use {
@@ -15,6 +16,9 @@ export class Use {
     titleENG: string;
 
     heroImageUrl?: string;
+
+    @OneToMany(() => UseComposition, (useComposition) => useComposition.use)
+    useComposition: UseComposition[];
     
     @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
@@ -32,7 +36,6 @@ export class Use {
         };
     }
 
-    
     public getDefaultOrderBy() {
       return {
         columnName: 'createdAt',

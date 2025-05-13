@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Use } from "./use.entity";
+import { UseCompositionUseFor } from "./use-composition-use-for.entity";
 
 @Entity('use_compositions')
 export class UseComposition {
@@ -11,10 +12,7 @@ export class UseComposition {
     use: Use;
 
     @Column({ name: 'use_id', type: 'int', nullable: true })
-    useId: string;
-    
-    @Column({ name: 'hero_image', type: 'varchar', length: 255, nullable: true, })
-    heroImage: string;
+    useId: number;
 
     @Column({ name: 'title_id', type: 'varchar', length: 255, nullable: true, })
     titleIDN: string;
@@ -27,8 +25,6 @@ export class UseComposition {
 
     @Column({ name: 'description_eng', type: 'text', nullable: true, })
     descriptionENG: string;
-
-    heroImageUrl?: string;
     
     @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
@@ -38,6 +34,9 @@ export class UseComposition {
 
     @DeleteDateColumn({ name: 'deleted_at' })
     deletedAt: Date | null;
+
+    @OneToMany(() => UseCompositionUseFor, (useCompositionUseFor) => useCompositionUseFor.useComposition)
+    useCompositionUseFor: UseCompositionUseFor[];
 
     public getSearchables() {
         return {

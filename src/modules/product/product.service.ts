@@ -51,7 +51,7 @@ export class ProductService {
         const product: Product = await this.productRepository.findOne({ where: { id: Number(id) }, relations: { productAdvantage: true }});
 
         if (!product) {
-            throw new NotFoundException('Product no longer exists. Please try another news');
+            throw new NotFoundException('Product no longer exists. Please try another product');
         }
 
         // DONE: get image
@@ -70,7 +70,7 @@ export class ProductService {
         const product: Product = await this.productRepository.findOne({ where: { id: Number(id) }});
 
         if (!product) {
-            throw new NotFoundException('Gallery event no longer exists. Please try another news');
+            throw new NotFoundException('Product no longer exists. Please try another product');
         }
 
         product.titleIDN = body.titleIDN ?? product.titleIDN,

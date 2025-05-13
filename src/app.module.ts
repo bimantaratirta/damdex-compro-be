@@ -14,6 +14,7 @@ import { NewsModule } from './modules/news/news.module';
 import { GalleryEventModule } from './modules/gallery-event/gallery-event.module';
 import { ProjectModule } from './modules/project/project.module';
 import { ProductModule } from './modules/product/product.module';
+import { UseModule } from './modules/use/use.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { ProductModule } from './modules/product/product.module';
     GalleryEventModule,
     ProjectModule,
     ProductModule,
+    UseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
