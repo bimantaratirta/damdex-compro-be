@@ -66,7 +66,11 @@ export class UseCompositionService {
 
     async getUseCompositionOptions(req: Request) {
         const useId = req.query.useId;
-        const options: FindManyOptions<UseComposition> = {}
+        const options: FindManyOptions<UseComposition> = {
+            relations: {
+                useCompositionUseFor: true
+            }
+        }
 
         if (useId) {
             options.where = {
