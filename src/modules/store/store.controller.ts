@@ -24,7 +24,9 @@ export class StoreController {
     @ApiQuery({ name: 'page', description: 'to filter the data base on page with a specific limit', type: 'number', example: '1' })
     @ApiQuery({ name: 'limit', description: 'to limit the data to be retrieved (default: 25)', type: 'number', example: '25' })
     async findPaginate(@Query() req: Request) {
-        return this.storeService.findPaginate(req);
+        const data = await this.storeService.findPaginate(req);
+        const message = 'Stores retrieved successfully';
+        return { data, message };
     }
 
     @Get(':id')
@@ -34,7 +36,9 @@ export class StoreController {
         typeResponse: GetOneStoreResponseBody
     })
     async findOne(@Param('id') id: string) {
-        return this.storeService.findOne(id);
+        const data = await this.storeService.findOne(id);
+        const message = 'Store retrieved successfully';
+        return { data, message };
     }
 
     @Post()
@@ -43,7 +47,9 @@ export class StoreController {
         typeResponse: CreateStoreResponseBody
     })
     async create(@Body() body: CreateStoreDto) {
-        return this.storeService.create(body);
+        const data = await this.storeService.create(body);
+        const message = 'Store created successfully';
+        return { data, message };
     }
 
     @Patch(':id')
@@ -52,7 +58,9 @@ export class StoreController {
         typeResponse: UpdateStoreResponseBody
     })
     async update(@Param('id') id: string, @Body() body: UpdateStoreDto) {
-        return this.storeService.update(id, body);
+        const data = await this.storeService.update(id, body);
+        const message = 'Store updated successfully';
+        return { data, message };
     }
 
     @Delete(':id')
@@ -61,6 +69,8 @@ export class StoreController {
         typeResponse: ResponseBody
     })
     async delete(@Param('id') id: string) {
-        return this.storeService.delete(id);
+        await this.storeService.delete(id);
+        const message = 'Store deleted successfully';
+        return { message };
     }
 }

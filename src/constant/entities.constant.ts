@@ -8,6 +8,7 @@ import { Project } from '../entities/project.entity';
 import { Use } from '../entities/use.entity';
 import { UseComposition } from '../entities/use-composition.entity';
 import { UseCompositionUseFor } from '../entities/use-composition-use-for.entity';
+import { Store } from '../entities/store.entity';
 
 export const ENTITIES = [
     User,
@@ -19,5 +20,6 @@ export const ENTITIES = [
     Project,
     Use,
     UseComposition,
-    UseCompositionUseFor
+    UseCompositionUseFor,
+    Store
 ];

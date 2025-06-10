@@ -24,7 +24,7 @@ export class FindPaginate {
     where() {
       if (this.searchables) {
         Object.entries(this.searchables).forEach(([key, value]: [string, string]) => {
-          if (this.req.query[key]) {
+          if (this.req?.query?.[key]) {
             let valueWhere: any = this.req.query[key];
             if (value.toLowerCase() == 'like') {
               valueWhere = ILike(`%${this.req.query[key]}%`);
