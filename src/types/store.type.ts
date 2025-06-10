@@ -44,6 +44,31 @@ class StoreResponseData {
     deletedAt: Date | null;
 }
 
+class CityOptionsResponseData {
+    @ApiResponseProperty()
+    @Expose()
+    value: string;
+
+    @ApiResponseProperty()
+    @Expose()
+    label: string;
+}
+
+class ProvinceOptionsResponseData {
+    @ApiResponseProperty()
+    @Expose()
+    value: string;
+    
+    @ApiResponseProperty()
+    @Expose()
+    label: string;
+
+    @ApiResponseProperty({ type: [CityOptionsResponseData] })
+    @Expose()
+    @Type(() => CityOptionsResponseData)
+    city: CityOptionsResponseData[];
+}
+
 export class PaginateStoreResponseData extends ResponsePaginateData {
     @ApiResponseProperty({ type: [StoreResponseData] })
     @Expose()
@@ -77,4 +102,18 @@ export class UpdateStoreResponseBody extends ResponseBody {
     @Expose()
     @Type(() => StoreResponseData)
     data?: StoreResponseData;
+}
+
+export class ProvinceOptionsResponseBody extends ResponseBody {
+    @ApiResponseProperty({ type: [ProvinceOptionsResponseData] })
+    @Expose()
+    @Type(() => ProvinceOptionsResponseData)
+    data?: ProvinceOptionsResponseData[];
+}
+
+export class CityOptionsResponseBody extends ResponseBody {
+    @ApiResponseProperty({ type: [CityOptionsResponseData] })
+    @Expose()
+    @Type(() => CityOptionsResponseData)
+    data?: CityOptionsResponseData[];
 }

@@ -1,0 +1,414 @@
+type ProvinceOptions = {
+    value: string;
+    label: string;
+    city: { value: string; label: string }[];
+}
+
+export const PROVINCE_OPTIONS: ProvinceOptions[] = [
+    {
+        value: 'Jakarta',
+        label: 'Jakarta',
+        city: [
+            { value: 'Jakarta Pusat', label: 'Jakarta Pusat' },
+            { value: 'Jakarta Selatan', label: 'Jakarta Selatan' },
+            { value: 'Jakarta Timur', label: 'Jakarta Timur' },
+            { value: 'Jakarta Barat', label: 'Jakarta Barat' },
+            { value: 'Jakarta Utara', label: 'Jakarta Utara' },
+            { value: 'Tangerang', label: 'Tangerang' },
+            { value: 'Tangerang Selatan', label: 'Tangerang Selatan' },
+        ]
+    },
+    {
+        value: 'Jawa Barat',
+        label: 'Jawa Barat',
+        city: [
+            { value: 'Bandung', label: 'Bandung' },
+            { value: 'Bandung Kota', label: 'Bandung Kota' },
+            { value: 'Bandung Selatan', label: 'Bandung Selatan' },
+            { value: 'Bandung Timur', label: 'Bandung Timur' },
+            { value: 'Bandung Utara', label: 'Bandung Utara' },
+            { value: 'Bekasi Barat', label: 'Bekasi Barat' },
+            { value: 'Bekasi Timur', label: 'Bekasi Timur' },
+            { value: 'Bekasi Selatan', label: 'Bekasi Selatan' },
+            { value: 'Bekasi Utara', label: 'Bekasi Utara' },
+            { value: 'Banjaran', label: 'Banjaran' },
+            { value: 'Cibubur', label: 'Cibubur' },
+            { value: 'Ciamis', label: 'Ciamis' },
+            { value: 'Cikarang', label: 'Cikarang' },
+            { value: 'Cilegon', label: 'Cilegon' },
+            { value: 'Cileunyi', label: 'Cileunyi' },
+            { value: 'Ciparay', label: 'Ciparay' },
+            { value: 'Cipanas', label: 'Cipanas' },
+            { value: 'Ciwedey', label: 'Ciwedey' },
+            { value: 'Cianjur', label: 'Cianjur' },
+            { value: 'Cimahi', label: 'Cimahi' },
+            { value: 'Garut', label: 'Garut' },
+            { value: 'Jonggol', label: 'Jonggol' },
+            { value: 'Karawang', label: 'Karawang' },
+            { value: 'Leuwinanggung', label: 'Leuwinanggung' },
+            { value: 'Malajaya', label: 'Malajaya' },
+            { value: 'Malangbong', label: 'Malangbong' },
+            { value: 'Nagrek', label: 'Nagrek' },
+            { value: 'Narogong', label: 'Narogong' },
+            { value: 'Padalarang', label: 'Padalarang' },
+            { value: 'Purwakarta', label: 'Purwakarta' },
+            { value: 'Rancaengkek', label: 'Rancaengkek' },
+            { value: 'Serang', label: 'Serang' },
+            { value: 'Soreang', label: 'Soreang' },
+            { value: 'Sumedang', label: 'Sumedang' },
+            { value: 'Tasikmalaya', label: 'Tasikmalaya' },
+            { value: 'Bogor', label: 'Bogor' },
+            { value: 'Ciawi', label: 'Ciawi' },
+            { value: 'Cisarua', label: 'Cisarua' },
+            { value: 'Puncak', label: 'Puncak' },
+            { value: 'Sukabumi', label: 'Sukabumi' },
+            { value: 'Tambun', label: 'Tambun' },
+            { value: 'Cibitung', label: 'Cibitung' },
+            { value: 'Cirebon', label: 'Cirebon' },
+            { value: 'Indramayu', label: 'Indramayu' },
+            { value: 'Majalengka', label: 'Majalengka' },
+            { value: 'Kuningan', label: 'Kuningan' }
+        ]
+    },
+    {
+        value: 'Jawa Tengah',
+        label: 'Jawa Tengah',
+        city: [
+            { value: 'Tegal', label: 'Tegal' },
+            { value: 'Pemalang', label: 'Pemalang' },
+            { value: 'Slawi', label: 'Slawi' },
+            { value: 'Pekalongan', label: 'Pekalongan' },
+            { value: 'Batang', label: 'Batang' },
+            { value: 'Weleri', label: 'Weleri' },
+            { value: 'Kendal', label: 'Kendal' },
+            { value: 'Ungaran', label: 'Ungaran' },
+            { value: 'Ambarawa', label: 'Ambarawa' },
+            { value: 'Demak', label: 'Demak' },
+            { value: 'Semarang', label: 'Semarang' },
+            { value: 'Kudus', label: 'Kudus' },
+            { value: 'Purwodadi', label: 'Purwodadi' },
+            { value: 'Pati', label: 'Pati' },
+            { value: 'Juwana', label: 'Juwana' },
+            { value: 'Jepara', label: 'Jepara' },
+            { value: 'Rembang', label: 'Rembang' },
+            { value: 'Prupuk', label: 'Prupuk' },
+            { value: 'Bumiayu', label: 'Bumiayu' },
+            { value: 'Ajibarang', label: 'Ajibarang' },
+            { value: 'Purwokerto', label: 'Purwokerto' },
+            { value: 'Purbalingga', label: 'Purbalingga' },
+            { value: 'Banyumas', label: 'Banyumas' },
+            { value: 'Banjarnegara', label: 'Banjarnegara' },
+            { value: 'Kroya', label: 'Kroya' },
+            { value: 'Wangon', label: 'Wangon' },
+            { value: 'Majenang', label: 'Majenang' },
+            { value: 'Cilacap', label: 'Cilacap' },
+            { value: 'Gombong', label: 'Gombong' },
+            { value: 'Salatiga', label: 'Salatiga' },
+            { value: 'Boyolali', label: 'Boyolali' },
+            { value: 'Solo', label: 'Solo' },
+            { value: 'Karanganyar', label: 'Karanganyar' },
+            { value: 'Sukoharjo', label: 'Sukoharjo' },
+            { value: 'Wonogiri', label: 'Wonogiri' },
+            { value: 'Sragen', label: 'Sragen' },
+            { value: 'Mantingan', label: 'Mantingan' },
+            { value: 'Muntilan', label: 'Muntilan' },
+            { value: 'Magelang', label: 'Magelang' },
+            { value: 'Temanggung', label: 'Temanggung' },
+            { value: 'Wonosobo', label: 'Wonosobo' },
+            { value: 'Purworejo', label: 'Purworejo' },
+            { value: 'Kebumen', label: 'Kebumen' }
+        ]
+    },
+    {
+        value: 'D.I. Yogyakarta',
+        label: 'D.I. Yogyakarta',
+        city: [
+            { value: 'Kodya Yogyakarta', label: 'Kodya Yogyakarta' },
+            { value: 'Kabupaten Sleman', label: 'Kabupaten Sleman' },
+            { value: 'Kabupaten Bantul', label: 'Kabupaten Bantul' },
+            { value: 'Kabupaten Gunung Kidul', label: 'Kabupaten Gunung Kidul' },
+            { value: 'Kabupaten Kulon Progo', label: 'Kabupaten Kulon Progo' },
+            { value: 'Sleman Timur', label: 'Sleman Timur' },
+            { value: 'Jogja Kota Utara Timur', label: 'Jogja Kota Utara Timur' },
+            { value: 'Jogja Kota Selatan', label: 'Jogja Kota Selatan' },
+            { value: 'Jogja Kota Barat Utara', label: 'Jogja Kota Barat Utara' },
+            { value: 'Kulon Progo', label: 'Kulon Progo' },
+            { value: 'Wonosari', label: 'Wonosari' },
+            { value: 'Sleman Barat', label: 'Sleman Barat' }
+        ]
+    },
+    {
+        value: 'Jawa Timur',
+        label: 'Jawa Timur',
+        city: [
+            { value: 'Surabaya Barat', label: 'Surabaya Barat' },
+            { value: 'Surabaya Timur', label: 'Surabaya Timur' },
+            { value: 'Surabaya Utara', label: 'Surabaya Utara' },
+            { value: 'Surabaya Selatan', label: 'Surabaya Selatan' },
+            { value: 'Kabupaten Sidoarjo', label: 'Kabupaten Sidoarjo' },
+            { value: 'Kabupaten Mojokerto', label: 'Kabupaten Mojokerto' },
+            { value: 'Kabupaten Gresik', label: 'Kabupaten Gresik' },
+            { value: 'Kabupaten Tulungagung', label: 'Kabupaten Tulungagung' },
+            { value: 'Kabupaten Blitar', label: 'Kabupaten Blitar' },
+            { value: 'Kabupaten Kediri', label: 'Kabupaten Kediri' },
+            { value: 'Kabupaten Madiun', label: 'Kabupaten Madiun' },
+            { value: 'Kabupaten Jombang', label: 'Kabupaten Jombang' },
+            { value: 'Kabupaten Nganjuk', label: 'Kabupaten Nganjuk' },
+            { value: 'Kabupaten Jember', label: 'Kabupaten Jember' },
+            { value: 'Kabupaten Lumajang', label: 'Kabupaten Lumajang' },
+            { value: 'Kabupaten Bondowoso', label: 'Kabupaten Bondowoso' },
+            { value: 'Kabupaten Banyuwangi', label: 'Kabupaten Banyuwangi' },
+            { value: 'Kabupaten Probolinggo', label: 'Kabupaten Probolinggo' },
+            { value: 'Kabupaten Situbondo', label: 'Kabupaten Situbondo' },
+            { value: 'Kabupaten Lamongan', label: 'Kabupaten Lamongan' },
+            { value: 'Kabupaten Tuban', label: 'Kabupaten Tuban' },
+            { value: 'Kabupaten Bojonegoro', label: 'Kabupaten Bojonegoro' },
+            { value: 'Kabupaten Babat', label: 'Kabupaten Babat' },
+            { value: 'Kota Malang', label: 'Kota Malang' },
+            { value: 'Kabupaten Malang', label: 'Kabupaten Malang' },
+            { value: 'Kota Batu', label: 'Kota Batu' }
+        ]
+    }, 
+    {
+        value: 'Bali',
+        label: 'Bali',
+        city: [
+            { value: 'Kota Denpasar', label: 'Kota Denpasar' },
+            { value: 'Kabupaten Badung', label: 'Kabupaten Badung' },
+            { value: 'Kabupaten Tabanan', label: 'Kabupaten Tabanan' },
+            { value: 'Kabupaten Gianyar', label: 'Kabupaten Gianyar' },
+            { value: 'Kabupaten Klungkung', label: 'Kabupaten Klungkung' },
+            { value: 'Kabupaten Karangasem', label: 'Kabupaten Karangasem' },
+            { value: 'Kabupaten Bangli', label: 'Kabupaten Bangli' },
+            { value: 'Kabupaten Jembrana', label: 'Kabupaten Jembrana' },
+            { value: 'Kabupaten Buleleng', label: 'Kabupaten Buleleng' }
+        ]
+    }, 
+    {
+        value: 'Nusa Tenggara Barat',
+        label: 'Nusa Tenggara Barat',
+        city: [
+            { value: 'Mataram', label: 'Mataram' },
+            { value: 'Lombok Barat', label: 'Lombok Barat' },
+            { value: 'Lombok Utara', label: 'Lombok Utara' },
+            { value: 'Lombok Tengah', label: 'Lombok Tengah' },
+            { value: 'Lombok Timur', label: 'Lombok Timur' },
+            { value: 'Sumbawa', label: 'Sumbawa' },
+        ]
+    },
+    {
+        value: 'Riau',
+        label: 'Riau',
+        city: [
+            { value: 'Pekanbaru', label: 'Pekanbaru' },
+            { value: 'Dumai', label: 'Dumai' },
+            { value: 'Siak', label: 'Siak' },
+            { value: 'Rokan Hilir', label: 'Rokan Hilir' },
+            { value: 'Rokan Hulu', label: 'Rokan Hulu' },
+            { value: 'Pelalawan', label: 'Pelalawan' },
+            { value: 'Kuantan Singingi', label: 'Kuantan Singingi' },
+            { value: 'Kampar', label: 'Kampar' },
+            { value: 'Indragiri Hilir', label: 'Indragiri Hilir' },
+            { value: 'Indragiri Hulu', label: 'Indragiri Hulu' },
+            { value: 'Bengkalis', label: 'Bengkalis' },
+            { value: 'Meranti', label: 'Meranti' }
+        ]
+    },
+    {
+        value: 'Kepulauan Riau',
+        label: 'Kepulauan Riau',
+        city: [
+            { value: 'Kota Batam', label: 'Kota Batam' },
+            { value: 'Kabupaten Bintan', label: 'Kabupaten Bintan' },
+            { value: 'Kabupaten Galang', label: 'Kabupaten Galang' },
+            { value: 'Kabupaten Selat Panjang', label: 'Kabupaten Selat Panjang' },
+            { value: 'Kabupaten Karimun', label: 'Kabupaten Karimun' }
+        ]
+    },
+    {
+        value: 'Sumatera Barat',
+        label: 'Sumatera Barat',
+        city: [
+            { value: 'Padang', label: 'Padang' },
+            { value: 'Padang Barat', label: 'Padang Barat' },
+            { value: 'Padang Pariaman', label: 'Padang Pariaman' },
+        ]
+    },
+    {
+        value: 'Sumatera Utara & Aceh',
+        label: 'Sumatera Utara & Aceh',
+        city: [
+            { value: 'Kota Medan', label: 'Kota Medan' },
+            { value: 'Kota Banda Aceh', label: 'Kota Banda Aceh' },
+            { value: 'Kota Lhokseumawe', label: 'Kota Lhokseumawe' },
+        ]
+    },
+    {
+        value: 'Sumatera',
+        label: 'Sumatera',
+        city: [
+            { value: 'Lampung', label: 'Lampung' },
+            { value: 'Jambi', label: 'Jambi' },
+            { value: 'Kuala Tungkal', label: 'Kuala Tungkal' },
+            { value: 'Tembesi Bulian', label: 'Tembesi Bulian' },
+            { value: 'Sarolangun Singkut Bangko', label: 'Sarolangun Singkut Bangko' },
+            { value: 'Bahar', label: 'Bahar' },
+            { value: 'Tebo Bungo Rimbo Bujang', label: 'Tebo Bungo Rimbo Bujang' },
+            { value: 'Kerinci', label: 'Kerinci' },
+            { value: 'Pasar', label: 'Pasar' },
+            { value: 'Kasang', label: 'Kasang' },
+            { value: 'Talang Banjar', label: 'Talang Banjar' },
+            { value: 'Kumpeh', label: 'Kumpeh' },
+            { value: 'Sipin', label: 'Sipin' },
+            { value: 'Mayang', label: 'Mayang' },
+            { value: 'Simpang Rimbo', label: 'Simpang Rimbo' },
+            { value: 'The Hok', label: 'The Hok' },
+            { value: 'Palmerah', label: 'Palmerah' },
+            { value: 'Pasir Putih', label: 'Pasir Putih' },
+            { value: 'Bengkulu Kota', label: 'Bengkulu Kota' },
+            { value: 'Bengkulu Utara', label: 'Bengkulu Utara' },
+            { value: 'Bengkulu Selatan', label: 'Bengkulu Selatan' },
+            { value: 'Rejanglebong', label: 'Rejanglebong' },
+            { value: 'Lebong', label: 'Lebong' },
+            { value: 'Seluma', label: 'Seluma' },
+            { value: 'Kaur', label: 'Kaur' },
+            { value: 'Muko Muko', label: 'Muko Muko' },
+            { value: 'Kepahyang', label: 'Kepahyang' },
+            { value: 'Bengkulu Tengah', label: 'Bengkulu Tengah' },
+        ]
+    }, 
+    {
+        value: 'Kepulauan Bangka Belitung',
+        label: 'Kepulauan Bangka Belitung',
+        city: [
+            { value: 'Kota Pangkal Pinang', label: 'Kota Pangkal Pinang' },
+            { value: 'Kabupaten Bangka', label: 'Kabupaten Bangka' },
+            { value: 'Kabupaten Belitung', label: 'Kabupaten Belitung' },
+            { value: 'Kabupaten Bangka Tengah', label: 'Kabupaten Bangka Tengah' },
+        ]
+    },
+    {
+        value: 'Sumatera Selatan',
+        label: 'Sumatera Selatan',
+        city: [
+            { value: 'Palembang', label: 'Palembang' },
+            { value: 'Plaju', label: 'Plaju' },
+            { value: 'Sungai Gerong', label: 'Sungai Gerong' },
+            { value: 'Indra Jaya', label: 'Indra Jaya' },
+            { value: 'Kayu Agung', label: 'Kayu Agung' },
+            { value: 'Prabu Mulih', label: 'Prabu Mulih' },
+            { value: 'Batu Raja', label: 'Batu Raja' },
+            { value: 'Muara Enim', label: 'Muara Enim' },
+            { value: 'Lahat', label: 'Lahat' },
+            { value: 'Lubuk Linggau', label: 'Lubuk Linggau' },
+            { value: 'Sekayu', label: 'Sekayu' },
+        ]
+    },
+    {
+        value: 'Kalimantan Barat',
+        label: 'Kalimantan Barat',
+        city: [
+            { value: 'Kota Pontianak', label: 'Kota Pontianak' },
+            { value: 'Kabupaten Sambas', label: 'Kabupaten Sambas' },
+            { value: 'Kabupaten Sanggau', label: 'Kabupaten Sanggau' },
+            { value: 'Kabupaten Kapuas Hulu', label: 'Kabupaten Kapuas Hulu' },
+            { value: 'Kabupaten Sintang', label: 'Kabupaten Sintang' },
+            { value: 'Kabupaten Ketapang', label: 'Kabupaten Ketapang' },
+            { value: 'Kabupaten Singkawang', label: 'Kabupaten Singkawang' },
+        ]
+    },
+    {
+        value: 'Kalimantan Timur',
+        label: 'Kalimantan Timur',
+        city: [
+            { value: 'Balikpapan', label: 'Balikpapan' },
+            { value: 'Samarinda', label: 'Samarinda' },
+            { value: 'Tenggarong', label: 'Tenggarong' },
+            { value: 'Bontang', label: 'Bontang' },
+            { value: 'Tanjung Redep', label: 'Tanjung Redep' },
+            { value: 'Tanjung Selor', label: 'Tanjung Selor' },
+            { value: 'Grogot', label: 'Grogot' },
+            { value: 'Sangata', label: 'Sangata' },
+            { value: 'Melak', label: 'Melak' },
+            { value: 'Penejam Paser Utara', label: 'Penejam Paser Utara' },
+            { value: 'Tarakan', label: 'Tarakan' },
+        ]
+    },
+    {
+        value: 'Kalimantan Selatan',
+        label: 'Kalimantan Selatan',
+        city: [
+            { value: 'Banjarmasin', label: 'Banjarmasin' },
+            { value: 'Banjarbaru', label: 'Banjarbaru' },
+            { value: 'Martapura', label: 'Martapura' },
+            { value: 'Marabahan', label: 'Marabahan' },
+            { value: 'Rantau', label: 'Rantau' },
+            { value: 'Kandangan', label: 'Kandangan' },
+            { value: 'Baraban', label: 'Baraban' },
+            { value: 'Amuntai', label: 'Amuntai' },
+            { value: 'Tanjung', label: 'Tanjung' },
+            { value: 'Kotabaru', label: 'Kotabaru' },
+            { value: 'Batulicin', label: 'Batulicin' },
+        ]
+    },
+    {
+        value: 'Kalimantan Tengah',
+        label: 'Kalimantan Tengah',
+        city: [
+            { value: 'Kapus', label: 'Kapus' },
+            { value: 'Palang Pisau', label: 'Palang Pisau' },
+            { value: 'Palangkaraya', label: 'Palangkaraya' },
+            { value: 'Sampit', label: 'Sampit' },
+            { value: 'Pangkalan Bun', label: 'Pangkalan Bun' },
+        ]
+    },
+    {
+        value: 'Sulawesi Selatan',
+        label: 'Sulawesi Selatan',
+        city: [
+            { value: 'Makassar', label: 'Makassar' },
+            { value: 'Maros', label: 'Maros' },
+            { value: 'Pangkajene', label: 'Pangkajene' },
+            { value: 'Barru', label: 'Barru' },
+            { value: 'Pare-Pare', label: 'Pare-Pare' },
+            { value: 'Pinrang', label: 'Pinrang' },
+            { value: 'Sidenreng', label: 'Sidenreng' },
+            { value: 'Enrekang', label: 'Enrekang' },
+            { value: 'Makale', label: 'Makale' },
+            { value: 'Rantepao', label: 'Rantepao' },
+            { value: 'Palopo', label: 'Palopo' },
+            { value: 'Wotu', label: 'Wotu' },
+            { value: 'Sorakuku', label: 'Sorakuku' },
+            { value: 'Sengkang', label: 'Sengkang' },
+            { value: 'Watepone', label: 'Watepone' },
+            { value: 'Tekalar', label: 'Tekalar' },
+            { value: 'Janeponto', label: 'Janeponto' },
+            { value: 'Bantaeng', label: 'Bantaeng' },
+            { value: 'Bulukumba', label: 'Bulukumba' },
+            { value: 'Sinjai', label: 'Sinjai' },
+            { value: 'Mamuju', label: 'Mamuju' },
+        ]
+    },
+    {
+        value: 'Sulawesi Tengah',
+        label: 'Sulawesi Tengah',
+        city: [
+            { value: 'Kota Palu', label: 'Kota Palu' },
+        ]
+    },
+    {
+        value: 'Sulawesi Utara',
+        label: 'Sulawesi Utara',
+        city: [
+            { value: 'Manado', label: 'Manado' },
+        ]
+    },
+    {
+        value: 'Indonesia Timur',
+        label: 'Indonesia Timur',
+        city: [
+            { value: 'Ambon', label: 'Ambon' },
+            { value: 'Sorong', label: 'Sorong' },
+        ]
+    }
+];

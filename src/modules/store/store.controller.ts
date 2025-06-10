@@ -2,10 +2,10 @@ import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Query } 
 import { StoreService } from './store.service';
 import { Request } from 'express';
 import { CreateStoreDto } from './dto/create.dto';
-import { ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { UpdateStoreDto } from './dto/update.dto';
 import { FunctionRule } from 'src/decorators/rule.decorator';
-import { CreateStoreResponseBody, GetOneStoreResponseBody, PaginateStoreResponseBody, UpdateStoreResponseBody } from 'src/types/store.type';
+import { CityOptionsResponseBody, CreateStoreResponseBody, GetOneStoreResponseBody, PaginateStoreResponseBody, ProvinceOptionsResponseBody, UpdateStoreResponseBody } from 'src/types/store.type';
 import { ResponseBody } from 'src/types/core.type';
 
 @ApiTags('Store')
@@ -26,6 +26,31 @@ export class StoreController {
     async findPaginate(@Query() req: Request) {
         const data = await this.storeService.findPaginate(req);
         const message = 'Stores retrieved successfully';
+        return { data, message };
+    }
+
+    @Get('province-options')
+    @FunctionRule({
+        auth: false,
+        code: HttpStatus.OK,
+        typeResponse: ProvinceOptionsResponseBody
+    })
+    async getProvinceOptions() {
+        const data = await this.storeService.getProvinceOptions();
+        const message = 'Province options retrieved successfully';
+        return { data, message };
+    }
+
+    @Get('city-options/:province')
+    @FunctionRule({
+        auth: false,
+        code: HttpStatus.OK,
+        typeResponse: CityOptionsResponseBody
+    })
+    @ApiParam({ name: 'province', description: 'Province name', type: 'string', example: 'Jakarta' })
+    async getCityOptions(@Param('province') province: string) {
+        const data = await this.storeService.getCityOptions(province);
+        const message = 'City options retrieved successfully';
         return { data, message };
     }
 

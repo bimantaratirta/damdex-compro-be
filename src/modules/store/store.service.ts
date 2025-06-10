@@ -6,6 +6,7 @@ import { StoreRepository } from 'src/repositories/store.repository';
 import { FindManyOptions } from 'typeorm';
 import { CreateStoreDto } from './dto/create.dto';
 import { UpdateStoreDto } from './dto/update.dto';
+import { PROVINCE_OPTIONS } from 'src/constant/province.constant';
 
 @Injectable()
 export class StoreService {
@@ -71,5 +72,19 @@ export class StoreService {
         }
 
         await this.storeRepository.softDelete({ id: store.id });
+    }
+
+    async getProvinceOptions() {
+        return PROVINCE_OPTIONS;
+    }
+
+    async getCityOptions(province: string) {
+        const cityOptions = PROVINCE_OPTIONS.find(p => p.value === province)?.city;
+
+        if (!cityOptions) {
+            throw new NotFoundException('Province not found');
+        }
+
+        return cityOptions;
     }
 }
