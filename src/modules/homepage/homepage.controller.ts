@@ -61,6 +61,7 @@ export class HomepageController {
             { name: 'section2BottomLeftImageBackground', maxCount: 1 },
             { name: 'section2BottomRightImageBackground', maxCount: 1 },
             { name: 'section3ImageBackground', maxCount: 1 },
+            { name: 'section3ImageBackground2', maxCount: 1 },
         ],
         {
             storage: memoryStorage(),
@@ -77,6 +78,7 @@ export class HomepageController {
             section2BottomLeftImageBackground?: Express.Multer.File[],
             section2BottomRightImageBackground?: Express.Multer.File[],
             section3ImageBackground?: Express.Multer.File[],
+            section3ImageBackground2?: Express.Multer.File[],
         }
     ) {
         if (files.section1Background?.[0]) {
@@ -99,6 +101,9 @@ export class HomepageController {
         }
         if (files.section3ImageBackground?.[0]) {
             body.section3ImageBackground = files.section3ImageBackground?.[0];
+        }
+        if (files.section3ImageBackground2?.[0]) {
+            body.section3ImageBackground2 = files.section3ImageBackground2?.[0];
         }
         
         const data = await this.homepageService.createOrUpdate(body);

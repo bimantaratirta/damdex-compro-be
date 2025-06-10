@@ -115,5 +115,8 @@ export class CreateOrUpdateHomepageDto {
     
     @ApiPropertyOptional({ description: 'required if section = 3', type: 'file' })
     section3ImageBackground: Express.Multer.File;
+
+    @ApiPropertyOptional({ description: 'required if section = 3', type: 'file' })
+    section3ImageBackground2: Express.Multer.File;
     // ! Section 3
 }

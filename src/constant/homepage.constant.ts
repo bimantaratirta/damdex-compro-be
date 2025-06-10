@@ -25,5 +25,6 @@ export const HOMEPAGE_KEY = {
     bottomRightTitle: 'section-3-bottom-right-title',
     bottomRightDescription: 'section-3-bottom-right-description',
     imageBackground: 'section-3-image-background',
+    imageBackground2: 'section-3-image-background-2',
   }
 };
