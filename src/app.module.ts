@@ -15,6 +15,7 @@ import { GalleryEventModule } from './modules/gallery-event/gallery-event.module
 import { ProjectModule } from './modules/project/project.module';
 import { ProductModule } from './modules/product/product.module';
 import { UseModule } from './modules/use/use.module';
+import { StoreModule } from './modules/store/store.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { UseModule } from './modules/use/use.module';
     ProjectModule,
     ProductModule,
     UseModule,
+    StoreModule,
   ],
   controllers: [AppController],
   providers: [AppService],
