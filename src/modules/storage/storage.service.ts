@@ -68,4 +68,44 @@ export class StorageService {
             forceDelete: true,
         });
     }
+
+    async savePublicImage(path: string, contentType: string, file: Express.Multer.File) {
+        // Define metadata for the object, including content type and the public-read ACL.
+        // The 'x-amz-acl' header is crucial for setting public readability.
+        const metadata: Minio.ItemBucketMetadata = {
+            'Content-Type': contentType, // Use 'Content-Type' as the key
+            'x-amz-acl': 'public-read'  // This header makes the file public-read
+          };
+      
+          const randomString = randomBytes(8).toString('hex');
+          const fileName = `${randomString}-${Date.now()}${extname(file.originalname)}`;
+          const pathFile: string = path.length > 0 ? `${path}/${fileName}` : fileName;
+      
+          try {
+              // Upload the object with the specified path, buffer, size, and metadata.
+              // The metadata now includes the 'x-amz-acl': 'public-read' header.
+              await this.minioClient.putObject(this.bucketName, pathFile, file.buffer, file.size, metadata);
+          
+              // Return the full URL to the uploaded file if your Minio client setup supports it
+              // or a path that can be used to construct the public URL.
+              // For S3-compatible services, the public URL is usually:
+              // http(s)://<endpoint>/<bucketName>/<pathFile>
+              return `${pathFile}`; // Or construct the full public URL if available
+          } catch (error) {
+              console.error('Error uploading file to Minio:', error);
+              throw new Error('Failed to upload file.');
+          }
+    }
+
+    async uploadPublicImage(file: Express.Multer.File) {
+        const pathPublicImage = 'public';
+        const pathFile = await this.savePublicImage(pathPublicImage, file.mimetype, file);
+        
+        const body = {
+            publicUrl: `https://${storageConfig().IS3_END_POINT}/${this.bucketName}/${pathFile}`,
+            path: pathFile,
+        }
+    
+        return body;
+    }
 }
