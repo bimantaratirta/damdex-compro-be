@@ -59,6 +59,21 @@ export class ProductController {
         return { data, message };
     }
 
+    @Get('product-advantage')
+    @FunctionRule({
+        auth: false,
+        code: HttpStatus.OK,
+        typeResponse: PaginateProductAdvantageResponseBody
+    })
+    @ApiQuery({ name: 'page', description: 'to filter the data base on page with a specific limit', type: 'number', example: '1' })
+    @ApiQuery({ name: 'limit', description: 'to limit the data to be retrieved (default: 25)', type: 'number', example: '25' })
+    async getPaginateProductAdvantage(@Req() req: Request) {
+        
+        const data = await this.productAdvantageService.findPaginate(req);
+        const message = 'Product advantages retrieved successfully';
+        return { data, message };
+    }
+
     @Get(':id')
     @FunctionRule({
         auth: false,
@@ -121,20 +136,6 @@ export class ProductController {
         await this.productService.delete(id)
         const message: string = 'Product deleted successfully';
         return { message };
-    }
-
-    @Get('product-advantage')
-    @FunctionRule({
-        auth: false,
-        code: HttpStatus.OK,
-        typeResponse: PaginateProductAdvantageResponseBody
-    })
-    @ApiQuery({ name: 'page', description: 'to filter the data base on page with a specific limit', type: 'number', example: '1' })
-    @ApiQuery({ name: 'limit', description: 'to limit the data to be retrieved (default: 25)', type: 'number', example: '25' })
-    async getPaginateProductAdvantage(@Req() req: Request) {
-        const data = await this.productAdvantageService.findPaginate(req);
-        const message = 'Product advantages retrieved successfully';
-        return { data, message };
     }
 
     @Get('product-advantage/:id')
