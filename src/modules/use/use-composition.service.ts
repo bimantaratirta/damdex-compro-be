@@ -68,7 +68,8 @@ export class UseCompositionService {
         const useId = req.query.useId;
         const options: FindManyOptions<UseComposition> = {
             relations: {
-                useCompositionUseFor: true
+                useCompositionUseFor: true,
+                use: true,
             }
         }
 
