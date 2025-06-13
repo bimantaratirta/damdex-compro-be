@@ -1,4 +1,4 @@
-import { ApiPropertyOptional, ApiResponseProperty } from "@nestjs/swagger";
+import { ApiResponseProperty } from "@nestjs/swagger";
 import { Expose, Type } from "class-transformer";
 import { ResponseBody, ResponsePaginateData } from "./core.type";
 
@@ -27,9 +27,17 @@ class StoreResponseData {
     @Expose()
     storeAddressGoogleMap: string;
     
-    @ApiPropertyOptional()
+    @ApiResponseProperty()
     @Expose()
     storePhone: string;
+
+    @ApiResponseProperty()
+    @Expose()
+    latitude: string;
+
+    @ApiResponseProperty()
+    @Expose()
+    longitude: string;
     
     @ApiResponseProperty()
     @Expose()

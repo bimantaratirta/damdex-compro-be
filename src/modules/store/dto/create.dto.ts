@@ -1,5 +1,5 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty } from "class-validator";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { IsNotEmpty, IsOptional } from "class-validator";
 
 export class CreateStoreDto {
     @ApiProperty()
@@ -18,11 +18,19 @@ export class CreateStoreDto {
     @IsNotEmpty()
     storeAddress: string;
 
-    @ApiProperty()
-    @IsNotEmpty()
+    @ApiPropertyOptional()
+    @IsOptional()
     storeAddressGoogleMap: string;
 
     @ApiProperty()
     @IsNotEmpty()
     storePhone: string;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    latitude: string;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    longitude: string;
 }

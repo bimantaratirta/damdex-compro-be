@@ -41,6 +41,8 @@ export class StoreService {
             storeAddress: body.storeAddress,
             storeAddressGoogleMap: body.storeAddressGoogleMap,
             storePhone: body.storePhone,
+            latitude: body.latitude,
+            longitude: body.longitude,
         });
 
         return await this.storeRepository.save(newStore);
@@ -59,6 +61,8 @@ export class StoreService {
         store.storeAddress = body.storeAddress ?? store.storeAddress;
         store.storeAddressGoogleMap = body.storeAddressGoogleMap ?? store.storeAddressGoogleMap;
         store.storePhone = body.storePhone ?? store.storePhone;
+        store.latitude = body.latitude ?? store.latitude;
+        store.longitude = body.longitude ?? store.longitude;
         await this.storeRepository.save(store);
 
         return store;

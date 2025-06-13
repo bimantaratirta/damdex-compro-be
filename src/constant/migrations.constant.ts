@@ -8,6 +8,7 @@ import { CreateUseTables1747056218624 } from '../migrations/1747056218624-Create
 import { CreateUseCompositionTables1747056226096 } from '../migrations/1747056226096-CreateUseCompositionTables';
 import { CreateUseCompositionUseForTables1747056256456 } from '../migrations/1747056256456-CreateUseCompositionUseForTables';
 import { CreateStoreTable1749565619649 } from '../migrations/1749565619649-CreateStoreTable';
+import { AddLatLongToStoreTable1749844148330 } from '../migrations/1749844148330-AddLatLongToStoreTable';
 
 export const MIGRATIONS = [
   CreateUsersTable1742759572112,
@@ -19,5 +20,6 @@ export const MIGRATIONS = [
   CreateUseTables1747056218624,
   CreateUseCompositionTables1747056226096,
   CreateUseCompositionUseForTables1747056256456,
-  CreateStoreTable1749565619649
+  CreateStoreTable1749565619649,
+  AddLatLongToStoreTable1749844148330,
 ];
