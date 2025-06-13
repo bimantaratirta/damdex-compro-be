@@ -116,7 +116,8 @@ export const PROVINCE_OPTIONS: ProvinceOptions[] = [
             { value: 'Temanggung', label: 'Temanggung' },
             { value: 'Wonosobo', label: 'Wonosobo' },
             { value: 'Purworejo', label: 'Purworejo' },
-            { value: 'Kebumen', label: 'Kebumen' }
+            { value: 'Kebumen', label: 'Kebumen' },
+            { value: 'Klaten', label: 'Klaten' },
         ]
     },
     {
@@ -166,7 +167,9 @@ export const PROVINCE_OPTIONS: ProvinceOptions[] = [
             { value: 'Kabupaten Babat', label: 'Kabupaten Babat' },
             { value: 'Kota Malang', label: 'Kota Malang' },
             { value: 'Kabupaten Malang', label: 'Kabupaten Malang' },
-            { value: 'Kota Batu', label: 'Kota Batu' }
+            { value: 'Kota Batu', label: 'Kota Batu' },
+            { value: 'Kabupaten Trenggalek', label: 'Kabupaten Trenggalek' },
+            { value: 'Kabupaten Ponorogo', label: 'Kabupaten Ponorogo' }
         ]
     }, 
     {
