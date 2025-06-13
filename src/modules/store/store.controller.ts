@@ -21,11 +21,11 @@ export class StoreController {
         code: HttpStatus.OK,
         typeResponse: PaginateStoreResponseBody
     })
-    @ApiQuery({ name: 'storeName', description: 'to filter the data base on store name', type: 'string', example: 'Toko A' })
-    @ApiQuery({ name: 'city', description: 'to filter the data base on city', type: 'string', example: 'Jakarta Pusat' })
-    @ApiQuery({ name: 'province', description: 'to filter the data base on province', type: 'string', example: 'Jakarta' })
-    @ApiQuery({ name: 'limit', description: 'to limit the data to be retrieved (default: 25)', type: 'number', example: '25' })
-    @ApiQuery({ name: 'page', description: 'to filter the data base on page with a specific limit', type: 'number', example: '1' })
+    @ApiQuery({ name: 'storeName', description: 'to filter the data base on store name', type: 'string', example: 'Toko A', required: false })
+    @ApiQuery({ name: 'city', description: 'to filter the data base on city', type: 'string', example: 'Jakarta Pusat', required: false })
+    @ApiQuery({ name: 'province', description: 'to filter the data base on province', type: 'string', example: 'Jakarta', required: false })
+    @ApiQuery({ name: 'limit', description: 'to limit the data to be retrieved (default: 25)', type: 'number', example: '25', required: false })
+    @ApiQuery({ name: 'page', description: 'to filter the data base on page with a specific limit', type: 'number', example: '1', required: false })
     async findPaginate(@Req() req: Request) {
         const data = await this.storeService.findPaginate(req);
         const message = 'Stores retrieved successfully';

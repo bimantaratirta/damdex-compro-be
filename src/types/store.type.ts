@@ -33,14 +33,6 @@ class StoreResponseData {
 
     @ApiResponseProperty()
     @Expose()
-    latitude: string;
-
-    @ApiResponseProperty()
-    @Expose()
-    longitude: string;
-    
-    @ApiResponseProperty()
-    @Expose()
     createdAt: Date;
 
     @ApiResponseProperty()

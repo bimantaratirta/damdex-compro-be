@@ -23,12 +23,6 @@ export class Store {
     @Column({ name: 'store_phone', type: 'varchar', length: 255, nullable: true })
     storePhone: string;
 
-    @Column({ name: 'latitude', type: 'varchar', length: 255, nullable: true })
-    latitude: string;
-
-    @Column({ name: 'longitude', type: 'varchar', length: 255, nullable: true })
-    longitude: string;
-
     @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
 
