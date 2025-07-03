@@ -17,7 +17,7 @@ export class Store {
     @Column({ name: 'store_address', type: 'varchar', length: 255, nullable: true })
     storeAddress: string;
 
-    @Column({ name: 'store_address_google_map', type: 'varchar', length: 255, nullable: true })
+    @Column({ name: 'store_address_google_map', type: 'text', nullable: true })
     storeAddressGoogleMap: string;
 
     @Column({ name: 'store_phone', type: 'varchar', length: 255, nullable: true })
