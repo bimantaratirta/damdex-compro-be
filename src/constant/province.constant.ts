@@ -23,6 +23,7 @@ export const PROVINCE_OPTIONS: ProvinceOptions[] = [
         label: 'Jawa Barat',
         city: [
             { value: 'Bandung', label: 'Bandung' },
+            { value: 'Depok', label: 'Depok' },
             { value: 'Bandung Kota', label: 'Bandung Kota' },
             { value: 'Bandung Selatan', label: 'Bandung Selatan' },
             { value: 'Bandung Timur', label: 'Bandung Timur' },
@@ -74,6 +75,8 @@ export const PROVINCE_OPTIONS: ProvinceOptions[] = [
         value: 'Jawa Tengah',
         label: 'Jawa Tengah',
         city: [
+            { value: 'Brebes', label: 'Brebes' },
+            { value: 'Blora', label: 'Blora' },
             { value: 'Tegal', label: 'Tegal' },
             { value: 'Pemalang', label: 'Pemalang' },
             { value: 'Slawi', label: 'Slawi' },
@@ -161,6 +164,7 @@ export const PROVINCE_OPTIONS: ProvinceOptions[] = [
             { value: 'Kabupaten Banyuwangi', label: 'Kabupaten Banyuwangi' },
             { value: 'Kabupaten Probolinggo', label: 'Kabupaten Probolinggo' },
             { value: 'Kabupaten Situbondo', label: 'Kabupaten Situbondo' },
+            { value: 'Panarukan', label: 'Panarukan' },
             { value: 'Kabupaten Lamongan', label: 'Kabupaten Lamongan' },
             { value: 'Kabupaten Tuban', label: 'Kabupaten Tuban' },
             { value: 'Kabupaten Bojonegoro', label: 'Kabupaten Bojonegoro' },
@@ -171,7 +175,7 @@ export const PROVINCE_OPTIONS: ProvinceOptions[] = [
             { value: 'Kabupaten Trenggalek', label: 'Kabupaten Trenggalek' },
             { value: 'Kabupaten Ponorogo', label: 'Kabupaten Ponorogo' }
         ]
-    }, 
+    },
     {
         value: 'Bali',
         label: 'Bali',
@@ -186,11 +190,12 @@ export const PROVINCE_OPTIONS: ProvinceOptions[] = [
             { value: 'Kabupaten Jembrana', label: 'Kabupaten Jembrana' },
             { value: 'Kabupaten Buleleng', label: 'Kabupaten Buleleng' }
         ]
-    }, 
+    },
     {
         value: 'Nusa Tenggara Barat',
         label: 'Nusa Tenggara Barat',
         city: [
+            { value: 'Gili Trawangan', label: 'Gili Trawangan' },
             { value: 'Mataram', label: 'Mataram' },
             { value: 'Lombok Barat', label: 'Lombok Barat' },
             { value: 'Lombok Utara', label: 'Lombok Utara' },
@@ -242,6 +247,9 @@ export const PROVINCE_OPTIONS: ProvinceOptions[] = [
         label: 'Sumatera Utara & Aceh',
         city: [
             { value: 'Kota Medan', label: 'Kota Medan' },
+            { value: 'Kota Takengon', label: 'Kota Takengon' },
+            { value: 'Kota Pematang Siantar', label: 'Kota Pematang Siantar' },
+            { value: 'Kota ⁠⁠Tebing Tinggi', label: 'Kota ⁠⁠Tebing Tinggi' },
             { value: 'Kota Banda Aceh', label: 'Kota Banda Aceh' },
             { value: 'Kota Lhokseumawe', label: 'Kota Lhokseumawe' },
         ]
@@ -251,6 +259,7 @@ export const PROVINCE_OPTIONS: ProvinceOptions[] = [
         label: 'Sumatera',
         city: [
             { value: 'Lampung', label: 'Lampung' },
+            { value: 'Kalianda', label: 'Kalianda' },
             { value: 'Jambi', label: 'Jambi' },
             { value: 'Kuala Tungkal', label: 'Kuala Tungkal' },
             { value: 'Tembesi Bulian', label: 'Tembesi Bulian' },
@@ -279,7 +288,7 @@ export const PROVINCE_OPTIONS: ProvinceOptions[] = [
             { value: 'Kepahyang', label: 'Kepahyang' },
             { value: 'Bengkulu Tengah', label: 'Bengkulu Tengah' },
         ]
-    }, 
+    },
     {
         value: 'Kepulauan Bangka Belitung',
         label: 'Kepulauan Bangka Belitung',
@@ -384,6 +393,7 @@ export const PROVINCE_OPTIONS: ProvinceOptions[] = [
             { value: 'Sorakuku', label: 'Sorakuku' },
             { value: 'Sengkang', label: 'Sengkang' },
             { value: 'Watepone', label: 'Watepone' },
+            { value: 'Kabupaten Gowa', label: 'Kabupaten Gowa' },
             { value: 'Tekalar', label: 'Tekalar' },
             { value: 'Janeponto', label: 'Janeponto' },
             { value: 'Bantaeng', label: 'Bantaeng' },
@@ -397,6 +407,20 @@ export const PROVINCE_OPTIONS: ProvinceOptions[] = [
         label: 'Sulawesi Tengah',
         city: [
             { value: 'Kota Palu', label: 'Kota Palu' },
+        ]
+    },
+    {
+        value: 'Sulawesi Tenggara',
+        label: 'Sulawesi Tenggara',
+        city: [
+            { value: 'Kota ⁠⁠Kendari Sulgra', label: 'Kota ⁠⁠Kendari Sulgra' },
+        ]
+    },
+    {
+        value: 'Sulawesi Barat',
+        label: 'Sulawesi Barat',
+        city: [
+            { value: 'Polewali Mandar', label: 'Polewali Mandar' },
         ]
     },
     {
